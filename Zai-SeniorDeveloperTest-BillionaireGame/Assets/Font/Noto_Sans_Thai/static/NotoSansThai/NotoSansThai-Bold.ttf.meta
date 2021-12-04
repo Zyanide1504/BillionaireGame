@@ -1,0 +1,29 @@
+fileFormatVersion: 2
+guid: 8b1b1bd980c6ca54cb195b81448f0eb9
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Noto Sans Thai
+  fontNames:
+  - Noto Sans Thai
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 86a8b370e55bee24fbdab6506bb70ed0, type: 3}
+  - {fileID: 12800000, guid: 74d2b5228ce4d4d40b1d19cd0be6447f, type: 3}
+  - {fileID: 12800000, guid: f7718537a35fe4e4f91fa1d472b91610, type: 3}
+  - {fileID: 12800000, guid: f59853b94760ca94e82bb4b1f245b6a7, type: 3}
+  - {fileID: 12800000, guid: 0b74aa8bd1dd6f6499e7b58518a7f944, type: 3}
+  - {fileID: 12800000, guid: 16568f5c42abf8d45a2aed85bcca1857, type: 3}
+  - {fileID: 12800000, guid: e87b23ccca75bfa49a1e479aa47e60dc, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
