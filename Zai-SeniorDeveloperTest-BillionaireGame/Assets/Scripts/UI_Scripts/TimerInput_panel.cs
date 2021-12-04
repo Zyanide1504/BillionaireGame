@@ -41,7 +41,7 @@ public class TimerInput_panel : MonoBehaviour
         int objLength = contentObj.Count;
         distance = new float[objLength];
 
-        
+        current_input = contentObj[minObjnum].GetComponent<Text>().text;
     }
 
     // Update is called once per frame
@@ -77,10 +77,24 @@ public class TimerInput_panel : MonoBehaviour
                 {
                     minObjnum = j;
                 }
-
             }
         }
 
+
+        for (int i = 0; i < contentObj.Count; i++) 
+        {
+            var tempobj_text = contentObj[i].GetComponent<Text>();
+            if (minObjnum == i)
+            {
+                tempobj_text.fontSize = 100;
+                tempobj_text.color = new Color(tempobj_text.color.r, tempobj_text.color.g, tempobj_text.color.b, 1);
+            }
+            else
+            {
+                tempobj_text.fontSize = 80;
+                tempobj_text.color = new Color(tempobj_text.color.r, tempobj_text.color.g, tempobj_text.color.b, 0.5f);
+            }
+        }
        
     }
 
