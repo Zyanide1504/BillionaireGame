@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 public class TimerManager : MonoBehaviour
 {
-
+    public Text SaveTimer_Text;
     public Text CountDown_Text;
     public Button Start_Button;
     public TimerInput_panel hourInput;
@@ -34,11 +34,13 @@ public class TimerManager : MonoBehaviour
         }
         else 
         {
-            SetTimer(DateTime.Parse("00:00"));
+            CurrentTimer = DateTime.Parse("00:00");
+            SetTimer(CurrentTimer);
             Debug.Log("null"); 
 
         }
 
+        SaveTimer_Text.text = CurrentTimer.TimeOfDay.ToString();
 
 #if UNITY_ANDROID
         defaultNotificationChanel = new AndroidNotificationChannel() 
@@ -91,6 +93,7 @@ public class TimerManager : MonoBehaviour
         var combind_TimeInput = hourInput.current_input + ":" + minuteInput.current_input;
         PlayerPrefs.SetString("Timer", combind_TimeInput);
         CurrentTimer = DateTime.Parse(combind_TimeInput);
+        SaveTimer_Text.text = CurrentTimer.TimeOfDay.ToString();
         finish_CountDown = false;
 #if UNITY_ANDROID
 
