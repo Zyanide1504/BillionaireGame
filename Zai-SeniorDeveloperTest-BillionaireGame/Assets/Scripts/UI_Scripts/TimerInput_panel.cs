@@ -149,4 +149,8 @@ public class TimerInput_panel : MonoBehaviour
         UpdateCurrentInput();
     }
 
+    public void ToggleEditMode() 
+    {
+    
+    }
 }

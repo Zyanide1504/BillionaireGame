@@ -2,19 +2,26 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Unity.Notifications.Android;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+
+
 
 
 public class TimerManager : MonoBehaviour
 {
-    public Text debugText;
+
+    public Text CountDown_Text;
+    public Button Start_Button;
     public TimerInput_panel hourInput;
     public TimerInput_panel minuteInput;
+    public TimerEdit_Panel timerEdit_Panel;
     private DateTime CurrentTimer;
     private AndroidNotificationChannel defaultNotificationChanel;
     private Int32 notic_identifier;
+
+    bool finish_CountDown;
 
     public void Start()
     {
@@ -22,14 +29,12 @@ public class TimerManager : MonoBehaviour
         if (PlayerPrefs.HasKey("Timer"))
         {
             CurrentTimer = DateTime.Parse(PlayerPrefs.GetString("Timer"));
-            hourInput.SetCurrentInput(CurrentTimer.Hour);
-            minuteInput.SetCurrentInput(CurrentTimer.Minute);
+            SetTimer(CurrentTimer);
 
         }
         else 
         {
-            hourInput.SetCurrentInput(0);
-            minuteInput.SetCurrentInput(0);
+            SetTimer(DateTime.Parse("00:00"));
             Debug.Log("null"); 
 
         }
@@ -49,12 +54,44 @@ public class TimerManager : MonoBehaviour
 
     }
 
+    public void Update()
+    {
+        CountDownTimmerUpdate();
+        UpdateStartButtonStatus();
+    }
+
+    public void CountDownTimmerUpdate() 
+    {
+        if (!finish_CountDown)
+        {
+            var timeNow = DateTime.Now.TimeOfDay;
+            var timer = CurrentTimer.TimeOfDay;
+            var timeDifference = CurrentTimer - timeNow;
+            string time = timeDifference.ToString("H:mm:ss");
+            CountDown_Text.text = time;
+
+            if (DateTime.Now > CurrentTimer) 
+            {
+                finish_CountDown = true;
+                CountDown_Text.text = "00:00:00";
+                
+            }
+
+        }
+    }
+
+
+    public void UpdateStartButtonStatus() 
+    {  
+        Start_Button.interactable = finish_CountDown;
+    }
+
     public void SaveTimer() 
     {
         var combind_TimeInput = hourInput.current_input + ":" + minuteInput.current_input;
         PlayerPrefs.SetString("Timer", combind_TimeInput);
         CurrentTimer = DateTime.Parse(combind_TimeInput);
-
+        finish_CountDown = false;
 #if UNITY_ANDROID
 
 
@@ -67,7 +104,6 @@ public class TimerManager : MonoBehaviour
             FireTime = CurrentTimer,
         };
 
-        debugText.text = AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier).ToString();
 
         if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Scheduled)
         {
@@ -82,24 +118,45 @@ public class TimerManager : MonoBehaviour
         else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Unknown)
         {
             notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
-        }
-
-
-        
+        }       
 #endif
 
     }
 
-    public void StartGame() 
+
+    public void SetTimer(DateTime time) 
     {
-        if (DateTime.Now > CurrentTimer)
+        var temp_CurrentTimer = time;
+        hourInput.SetCurrentInput(temp_CurrentTimer.Hour);
+        minuteInput.SetCurrentInput(temp_CurrentTimer.Minute);
+    }
+
+
+    public void TurnOnTimerEditPanel() 
+    {
+        timerEdit_Panel.gameObject.SetActive(true);
+        timerEdit_Panel.hour_InputField.text = hourInput.current_input;
+        timerEdit_Panel.minute_InputField.text = minuteInput.current_input;
+    }
+
+    public void ConfirmTimerEdit() 
+    {
+        try 
         {
-            SceneManager.LoadScene(1);
-        }
-        else 
-        {
+            SetTimer(DateTime.Parse(timerEdit_Panel.hour_InputField.text + ":" + timerEdit_Panel.minute_InputField.text));
+            timerEdit_Panel.gameObject.SetActive(false);
+        } 
+        catch 
+        { 
+        
         
         }
     
+    }
+
+
+    public void StartGame() 
+    {
+            SceneManager.LoadScene(1);
     }
 }
