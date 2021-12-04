@@ -9,6 +9,14 @@ public class TimerInput_panel : MonoBehaviour
 
     public GameObject TimeNumber_Prefab;
     public int max_number;
+    [Space]
+    public float alpha_fadeSpeed;
+    public float max_alpha;
+    public float min_alpha;
+    [Space]
+    public float scaling_Speed;
+    public float max_TextScale;
+    public float min_TextScale;
 
     public RectTransform panel;
     public List<GameObject> contentObj;
@@ -84,16 +92,25 @@ public class TimerInput_panel : MonoBehaviour
         for (int i = 0; i < contentObj.Count; i++) 
         {
             var tempobj_text = contentObj[i].GetComponent<Text>();
+            float destination_TextScale = 0;
+            float destination_alpha = 0; 
+
             if (minObjnum == i)
             {
-                tempobj_text.fontSize = 100;
-                tempobj_text.color = new Color(tempobj_text.color.r, tempobj_text.color.g, tempobj_text.color.b, 1);
+                destination_TextScale = max_TextScale;
+                destination_alpha = max_alpha;
             }
             else
             {
-                tempobj_text.fontSize = 80;
-                tempobj_text.color = new Color(tempobj_text.color.r, tempobj_text.color.g, tempobj_text.color.b, 0.5f);
+                destination_TextScale = min_TextScale;
+                destination_alpha = min_alpha;
             }
+
+            int currentFrontSize = (int)Mathf.Lerp(tempobj_text.fontSize, destination_TextScale, Time.deltaTime / alpha_fadeSpeed);
+            tempobj_text.fontSize = currentFrontSize;
+            
+            var lerp_Alph = Mathf.Lerp(tempobj_text.color.a, destination_alpha, Time.deltaTime / alpha_fadeSpeed);
+            tempobj_text.color = new Color(tempobj_text.color.r, tempobj_text.color.g, tempobj_text.color.b, lerp_Alph);
         }
        
     }

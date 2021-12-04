@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4456514593644032708}
   - component: {fileID: 4588047391541098679}
   m_Layer: 5
-  m_Name: 00
+  m_Name: TimeNumber_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 120.37985}
+  m_SizeDelta: {x: 160, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4456514593644032708
 CanvasRenderer:
