@@ -25,7 +25,9 @@ public class TimerInput_panel : MonoBehaviour
     private float[] distance;
     private bool dragging = false;
     private int objDistance;
-    private int minObjnum;
+
+    [HideInInspector]
+    public int minObjnum;
 
     public string current_input;
 
@@ -48,8 +50,6 @@ public class TimerInput_panel : MonoBehaviour
 
         int objLength = contentObj.Count;
         distance = new float[objLength];
-
-        current_input = contentObj[minObjnum].GetComponent<Text>().text;
     }
 
     // Update is called once per frame
@@ -134,7 +134,19 @@ public class TimerInput_panel : MonoBehaviour
     public void StopDrag() 
     {
         dragging = false;
+        UpdateCurrentInput();
+    }
+
+    public void UpdateCurrentInput() 
+    {
+
         current_input = contentObj[minObjnum].GetComponent<Text>().text;
+    }
+
+    public void SetCurrentInput(int index) 
+    {
+        minObjnum = index;
+        UpdateCurrentInput();
     }
 
 }
