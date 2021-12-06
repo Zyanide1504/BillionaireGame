@@ -1,18 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Question_Card : Card
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Question Card info")]
+    [SerializeField]
+    private Text score_Text;
+    [SerializeField]
+    private int score;
+
+    private GameManager gameManager;
+    public void Start()
     {
-        
+        gameManager = GameManager.Instance;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void SetScore(int _score) 
     {
-        
+        score_Text.text = _score.ToString();
+        score = _score;
+    }
+
+    public void CardClick() 
+    {
+
+        gameManager.CardSelect(score);
+
+
     }
 }
