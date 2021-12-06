@@ -47,10 +47,6 @@ public class QuestionPanel : MonoBehaviour
         ans_Buttonlist[3].transform.GetComponentInChildren<Text>().text = gameManager.api_Manager.current_Question.choiceD;
 
         Set_AnswerButtonInteract(true);
-
-
-
-
         yield return null;
     }
 

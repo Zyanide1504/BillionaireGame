@@ -1,15 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [Header("Manager")]
     public API_Manager api_Manager;
+    public GamePlay_TimerManager timer_manager;
+    public Score_Manager score_Manager;
     [Header("Panel")]
     public QuestionCard_Panel questionCard_Panel;
     public QuestionPanel question_Panel;
-    
+
+
+
+
     [Header("Game Setting")]
     public List<QuestionScore> card_scorelist;
     public int win_Score;
@@ -18,7 +24,6 @@ public class GameManager : MonoBehaviour
     public float revealAllCard_delay;
 
     private Coroutine gameOverCountDown;
-
 
     public static GameManager Instance { get; private set; }
 
@@ -78,7 +83,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(questionCard_Panel.HideAllCard());
 
         yield return StartCoroutine(question_Panel.Setup_QuestionPanel());
-        gameOverCountDown = StartCoroutine(GameOverCountDown());
+        gameOverCountDown = StartCoroutine(timer_manager.GameOverCountDown());
          
         yield return null;
     }
@@ -93,6 +98,8 @@ public class GameManager : MonoBehaviour
     {
         if (answer == api_Manager.current_Question.answer)
         {
+            score_Manager.AddScore(api_Manager.current_Question.score);
+            timer_manager.HideTimer();
             question_Panel.HideQuestionPanel();
             StartCoroutine(questionCard_Panel.SetUpQuestionCardPanel());
         }
@@ -104,20 +111,22 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator GameOverCountDown() 
+
+    public void OnWin() 
     {
-        yield return new WaitForSeconds(delay_countDown);
-
-        var timer = gameOverTime;
-
-        while (timer > 0) 
-        {
-        
-        }
-
-    
+        StartCoroutine(IE_OnWin());
     }
 
+    public IEnumerator IE_OnWin()
+    {
+        Debug.Log("Win");
+
+        yield return new WaitForSeconds(3f);
+
+        SceneManager.LoadScene(0);
+
+        yield return null;
+    }
 
     public void OnGameOver()
     {
@@ -127,6 +136,11 @@ public class GameManager : MonoBehaviour
     public IEnumerator IE_OnGameOver()
     {
         Debug.Log("GameOver");
+
+        yield return new WaitForSeconds(3f);
+
+        SceneManager.LoadScene(0);
+
         yield return null;
     }
 
