@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public API_Manager api_Manager;
     public GamePlay_TimerManager timer_manager;
     public Score_Manager score_Manager;
+    public Helper_Manager helper_Manager;
     [Header("Panel")]
     public QuestionCard_Panel questionCard_Panel;
     public QuestionPanel question_Panel;

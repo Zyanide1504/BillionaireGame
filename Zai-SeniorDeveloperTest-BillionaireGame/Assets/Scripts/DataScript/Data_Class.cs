@@ -31,9 +31,23 @@ public class QuestionID_Info_List
 }
 
 [System.Serializable]
-public class QuestionScore 
+public class QuestionScore : Random_Chance
 {
     public int score;
+   
+}
+
+
+[System.Serializable]
+public class Helper_AnswerChance : Random_Chance
+{
+    public string answer;
+}
+
+
+[System.Serializable]
+public class Random_Chance 
+{
     public float Chance;
     [HideInInspector]
     public float minChance;
