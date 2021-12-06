@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Manager")]
     public API_Manager api_Manager;
+    [Header("Panel")]
     public QuestionCard_Panel questionCard_Panel;
+    public QuestionPanel question_Panel;
+    
+    [Header("Game Setting")]
     public List<QuestionScore> card_scorelist;
-
+    public int win_Score;
+    public float delay_countDown;
+    public float gameOverTime;
     public float revealAllCard_delay;
 
+    private Coroutine gameOverCountDown;
 
 
     public static GameManager Instance { get; private set; }
@@ -31,31 +39,19 @@ public class GameManager : MonoBehaviour
 
     public void SetUpQuestionPanel() 
     {
-        StartCoroutine(IE_SetUpQuestionPanel());
+        StartCoroutine(questionCard_Panel.SetUpQuestionCardPanel());
     }
 
-    public IEnumerator IE_SetUpQuestionPanel() 
+
+    public void OnCardSelect(int score) 
     {
-      
-        var question_cardList = questionCard_Panel.question_CardList;
-
-        for (int i = 0; i < question_cardList.Count; i++)
-        {
-            question_cardList[i].SetScore(RandomCardScore());
-        }
-
-        StartCoroutine(questionCard_Panel.ShowAllCard());
-
-        yield return null;
+        StartCoroutine(IE_OnCardSelect(score));
     }
 
-    public void CardSelect(int score) 
+    public IEnumerator IE_OnCardSelect(int score) 
     {
-        StartCoroutine(IE_CardSelect(score));
-    }
+        questionCard_Panel.Setinteract_AllCard(false);
 
-    public IEnumerator IE_CardSelect(int score) 
-    {
         QuestionID_Info_List temp_QIDL = new QuestionID_Info_List();
         temp_QIDL.question_list = new List<QuestionID_Info>();
 
@@ -69,7 +65,7 @@ public class GameManager : MonoBehaviour
 
         int random = Random.Range(0, temp_QIDL.question_list.Count);
 
-        StartCoroutine(api_Manager.Get_Question_By_ID(temp_QIDL.question_list[random].question_ID));
+        yield return StartCoroutine(api_Manager.Get_Question_By_ID(temp_QIDL.question_list[random].question_ID));
 
 
 
@@ -81,50 +77,62 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(questionCard_Panel.HideAllCard());
 
+        yield return StartCoroutine(question_Panel.Setup_QuestionPanel());
+        gameOverCountDown = StartCoroutine(GameOverCountDown());
+         
+        yield return null;
+    }
+
+    public void OnSelectAnswer(string answer) 
+    {
+        StopCoroutine(gameOverCountDown);
+        StartCoroutine(IE_OnSelectAnswer(answer));
+    }
+
+    public IEnumerator IE_OnSelectAnswer(string answer)
+    {
+        if (answer == api_Manager.current_Question.answer)
+        {
+            question_Panel.HideQuestionPanel();
+            StartCoroutine(questionCard_Panel.SetUpQuestionCardPanel());
+        }
+        else
+        {
+            OnGameOver();
+        }
+
+        yield return null;
+    }
+
+    public IEnumerator GameOverCountDown() 
+    {
+        yield return new WaitForSeconds(delay_countDown);
+
+        var timer = gameOverTime;
+
+        while (timer > 0) 
+        {
+        
+        }
+
+    
+    }
+
+
+    public void OnGameOver()
+    {
+        StartCoroutine(IE_OnGameOver());
+    }
+
+    public IEnumerator IE_OnGameOver()
+    {
+        Debug.Log("GameOver");
         yield return null;
     }
 
 
 
-    public int RandomCardScore() 
-    {
 
-        float chanceSum = 0;
 
-        for (int i = 0; i < card_scorelist.Count; i++) 
-        {
-            var current = card_scorelist[i];
-            chanceSum += current.Chance;
-            if (i == 0)
-            {
-                current.minChance = 0;
-                current.maxChance = current.Chance;
-
-            }
-            else 
-            {
-
-                current.minChance = card_scorelist[i-1].maxChance;
-                current.maxChance = current.minChance + current.Chance;
-
-            }
-        
-        }
-
-        float rand = Random.Range(0, chanceSum);
-
-        for (int i = 0; i < card_scorelist.Count; i++) 
-        {
-            var current = card_scorelist[i];
-           
-            if (rand >= current.minChance && rand < current.maxChance) 
-            {
-                return current.score;
-            }
-        }
-
-        return 0;
-        
-    }
 }
 

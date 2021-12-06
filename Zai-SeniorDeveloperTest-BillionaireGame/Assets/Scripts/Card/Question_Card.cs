@@ -26,9 +26,6 @@ public class Question_Card : Card
 
     public void CardClick() 
     {
-
-        gameManager.CardSelect(score);
-
-
+        gameManager.OnCardSelect(score);
     }
 }

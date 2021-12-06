@@ -2,14 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    [Header("Card Info")]
-    public string card_Name;
-    public string card_Description;
+
     [Header("Card Back")]
     public GameObject card_Back;
+    [Header("Card Button")]
+    public Button cardButton;
 
     public bool isReveal;
 
@@ -41,5 +42,10 @@ public class Card : MonoBehaviour
     {
         this.gameObject.SetActive(false);
         yield return null;
+    }
+
+    public void Set_interact(bool interact) 
+    {
+        cardButton.interactable = interact;
     }
 }

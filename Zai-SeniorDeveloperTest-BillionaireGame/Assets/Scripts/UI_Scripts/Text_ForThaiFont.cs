@@ -8,6 +8,11 @@ public class Text_ForThaiFont : MonoBehaviour
 
     public void Start()
     {
+        AdjustText();
+    }
+
+    public void AdjustText() 
+    {
         Thai_text = this.GetComponent<Text>();
         Thai_text.text = ThaiFontAdjuster.Adjust(Thai_text.text);
     }

@@ -10,11 +10,6 @@ public class API_Manager : MonoBehaviour
     public Full_QuestionData current_Question;
     public QuestionID_Info_List QuestionID_List;
 
-    public void Start()
-    {
-        StartCoroutine(Get_Question_By_ID("A001"));
-    }
-
     public IEnumerator Get_Question_By_ID(string question_ID) 
     {
         var uri = get_Question_By_ID_API + question_ID;
@@ -32,7 +27,7 @@ public class API_Manager : MonoBehaviour
                
                 var result = webRequest.downloadHandler.text;
                 Debug.Log(result);
-               current_Question = JsonUtility.FromJson<Full_QuestionData>(result.Trim('[',']'));
+                yield return current_Question = JsonUtility.FromJson<Full_QuestionData>(result.Trim('[',']'));
             }
         }
     }
@@ -53,7 +48,7 @@ public class API_Manager : MonoBehaviour
             {
                 var result = webRequest.downloadHandler.text;
                 Debug.Log("{"+"\"question_list\":" + result+"}" );
-                QuestionID_List = JsonUtility.FromJson<QuestionID_Info_List>("{" + "\"question_list\":" + result + "}");
+                yield return QuestionID_List = JsonUtility.FromJson<QuestionID_Info_List>("{" + "\"question_list\":" + result + "}");
             }
         }
     }
