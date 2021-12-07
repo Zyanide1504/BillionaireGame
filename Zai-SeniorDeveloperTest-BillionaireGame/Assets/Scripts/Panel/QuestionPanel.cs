@@ -29,6 +29,12 @@ public class QuestionPanel : MonoBehaviour
 
     public void Ini_Button() 
     {
+        ans_Buttonlist[0].GetComponent<AnswerButton>().answer = "A";
+        ans_Buttonlist[1].GetComponent<AnswerButton>().answer = "B";
+        ans_Buttonlist[2].GetComponent<AnswerButton>().answer = "C";
+        ans_Buttonlist[3].GetComponent<AnswerButton>().answer = "D";
+
+
         ResetAllButtonColor();
         ShowAllButton();
     }

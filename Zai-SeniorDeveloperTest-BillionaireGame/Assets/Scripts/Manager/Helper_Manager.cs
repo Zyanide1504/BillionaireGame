@@ -13,7 +13,7 @@ public class Helper_Manager : MonoBehaviour
 
         //uncomment เพื่อทดสอบการ random คำตอบของ NPC
         //for(int i = 0; i < 10; i++) { Debug.Log(RandomAnswer()); }
-        Debug.Log(System.Array.IndexOf(choice,"C"));
+
     }
 
     // Update is called once per frame
@@ -30,10 +30,11 @@ public class Helper_Manager : MonoBehaviour
         while (select_remove.Count != 2) 
         {
             int randomIndex = Random.RandomRange(0, choice.Length-1);
+            var temp_GameObj = gameManager.question_Panel.ans_Buttonlist[randomIndex].gameObject;
 
-            if (choice[randomIndex] != gameManager.api_Manager.current_Question.answer) 
+            if (temp_GameObj.GetComponent<AnswerButton>().answer != gameManager.api_Manager.current_Question.answer) 
             {
-                var temp_GameObj = gameManager.question_Panel.ans_Buttonlist[randomIndex].gameObject;
+              
                 if (!select_remove.Contains(temp_GameObj))
                 {
                     select_remove.Add(temp_GameObj);
@@ -60,19 +61,21 @@ public class Helper_Manager : MonoBehaviour
 
             case "WrongANS":
 
-                var temp_wrongAns = "";
-                int randomIndex = 0;
+                string temp_wrongAns = "";
+                string real_ans = gameManager.api_Manager.current_Question.answer;
+                List<GameObject> select_wrongAns = new List<GameObject>();
 
-                while (temp_wrongAns == "") 
+                foreach (var x in gameManager.question_Panel.ans_Buttonlist) 
                 {
-                    randomIndex = Random.RandomRange(0, choice.Length - 1);
-
-                    if (choice[randomIndex] != gameManager.api_Manager.current_Question.answer) 
+                    if (x.GetComponent<AnswerButton>().answer != real_ans && x.gameObject.active) 
                     {
-                        temp_wrongAns = choice[randomIndex];
+                        select_wrongAns.Add(x.gameObject);
                     }
-
+                
                 }
+
+                temp_wrongAns = select_wrongAns[Random.RandomRange(0, select_wrongAns.Count - 1)].GetComponent<AnswerButton>().answer;
+                Debug.Log(temp_wrongAns);
 
                 gameManager.question_Panel.hintButton(System.Array.IndexOf(choice, temp_wrongAns));
 
