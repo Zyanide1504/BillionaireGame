@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-//using Unity.Notifications.Android;
+using Unity.Notifications.Android;
 using UnityEngine.SceneManagement;
 
 
@@ -18,7 +18,7 @@ public class TimerManager : MonoBehaviour
     public TimerInput_panel minuteInput;
     public TimerEdit_Panel timerEdit_Panel;
     private DateTime CurrentTimer;
-    //private AndroidNotificationChannel defaultNotificationChanel;
+    private AndroidNotificationChannel defaultNotificationChanel;
     private Int32 notic_identifier;
 
     bool finish_CountDown;
@@ -46,15 +46,15 @@ public class TimerManager : MonoBehaviour
         SaveTimer_Text.text = CurrentTimer.TimeOfDay.ToString();
 
 #if UNITY_ANDROID
-        //defaultNotificationChanel = new AndroidNotificationChannel() 
-        //{
-        //    Id = "default_channel",
-        //    Name = "Default Channel",
-        //    Description = "For Generic notification",
-        //    Importance = Importance.Default,
-        //};
+        defaultNotificationChanel = new AndroidNotificationChannel()
+        {
+            Id = "default_channel",
+            Name = "Default Channel",
+            Description = "For Generic notification",
+            Importance = Importance.Default,
+        };
 
-        // AndroidNotificationCenter.RegisterNotificationChannel(defaultNotificationChanel);
+        AndroidNotificationCenter.RegisterNotificationChannel(defaultNotificationChanel);
 #endif
 
     }
@@ -103,30 +103,30 @@ public class TimerManager : MonoBehaviour
 #if UNITY_ANDROID
 
 
-        //AndroidNotification notification = new AndroidNotification()
-        //{
-        //    Title = "Test Notification!!!",
-        //    Text = "This is a test notification!!!",
-        //    SmallIcon = "default",
-        //    LargeIcon = "default",
-        //    FireTime = CurrentTimer,
-        //};
+        AndroidNotification notification = new AndroidNotification()
+        {
+            Title = "Test Notification!!!",
+            Text = "This is a test notification!!!",
+            SmallIcon = "default",
+            LargeIcon = "default",
+            FireTime = CurrentTimer,
+        };
 
 
-        //if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Scheduled)
-        //{
-        //    AndroidNotificationCenter.CancelNotification(notic_identifier);
-        //    notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
-        //}
-        //else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Delivered)
-        //{
-        //    AndroidNotificationCenter.CancelNotification(notic_identifier);
-        //    notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
-        //}
-        //else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Unknown)
-        //{
-        //    notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
-        //}       
+        if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Scheduled)
+        {
+            AndroidNotificationCenter.CancelNotification(notic_identifier);
+            notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
+        }
+        else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Delivered)
+        {
+            AndroidNotificationCenter.CancelNotification(notic_identifier);
+            notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
+        }
+        else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Unknown)
+        {
+            notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
+        }
 #endif
 
     }
