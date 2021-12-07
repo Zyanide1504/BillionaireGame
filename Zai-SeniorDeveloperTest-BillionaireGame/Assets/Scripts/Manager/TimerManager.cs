@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Unity.Notifications.Android;
+//using Unity.Notifications.Android;
 using UnityEngine.SceneManagement;
 
 
@@ -18,19 +18,21 @@ public class TimerManager : MonoBehaviour
     public TimerInput_panel minuteInput;
     public TimerEdit_Panel timerEdit_Panel;
     private DateTime CurrentTimer;
-    private AndroidNotificationChannel defaultNotificationChanel;
+    //private AndroidNotificationChannel defaultNotificationChanel;
     private Int32 notic_identifier;
 
     bool finish_CountDown;
 
     public void Start()
     {
-      
+        
+        
         if (PlayerPrefs.HasKey("Timer"))
         {
             CurrentTimer = DateTime.Parse(PlayerPrefs.GetString("Timer"));
+            Debug.Log(CurrentTimer);
             SetTimer(CurrentTimer);
-
+           
         }
         else 
         {
@@ -40,18 +42,19 @@ public class TimerManager : MonoBehaviour
 
         }
 
+        
         SaveTimer_Text.text = CurrentTimer.TimeOfDay.ToString();
 
 #if UNITY_ANDROID
-        defaultNotificationChanel = new AndroidNotificationChannel() 
-        {
-            Id = "default_channel",
-            Name = "Default Channel",
-            Description = "For Generic notification",
-            Importance = Importance.Default,
-        };
+        //defaultNotificationChanel = new AndroidNotificationChannel() 
+        //{
+        //    Id = "default_channel",
+        //    Name = "Default Channel",
+        //    Description = "For Generic notification",
+        //    Importance = Importance.Default,
+        //};
 
-         AndroidNotificationCenter.RegisterNotificationChannel(defaultNotificationChanel);
+        // AndroidNotificationCenter.RegisterNotificationChannel(defaultNotificationChanel);
 #endif
 
     }
@@ -70,6 +73,7 @@ public class TimerManager : MonoBehaviour
             var timer = CurrentTimer.TimeOfDay;
             var timeDifference = CurrentTimer - timeNow;
             string time = timeDifference.ToString("H:mm:ss");
+          
             CountDown_Text.text = time;
 
             if (DateTime.Now > CurrentTimer) 
@@ -91,6 +95,7 @@ public class TimerManager : MonoBehaviour
     public void SaveTimer() 
     {
         var combind_TimeInput = hourInput.current_input + ":" + minuteInput.current_input;
+        Debug.Log(combind_TimeInput);
         PlayerPrefs.SetString("Timer", combind_TimeInput);
         CurrentTimer = DateTime.Parse(combind_TimeInput);
         SaveTimer_Text.text = CurrentTimer.TimeOfDay.ToString();
@@ -98,30 +103,30 @@ public class TimerManager : MonoBehaviour
 #if UNITY_ANDROID
 
 
-        AndroidNotification notification = new AndroidNotification()
-        {
-            Title = "Test Notification!!!",
-            Text = "This is a test notification!!!",
-            SmallIcon = "default",
-            LargeIcon = "default",
-            FireTime = CurrentTimer,
-        };
+        //AndroidNotification notification = new AndroidNotification()
+        //{
+        //    Title = "Test Notification!!!",
+        //    Text = "This is a test notification!!!",
+        //    SmallIcon = "default",
+        //    LargeIcon = "default",
+        //    FireTime = CurrentTimer,
+        //};
 
 
-        if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Scheduled)
-        {
-            AndroidNotificationCenter.CancelNotification(notic_identifier);
-            notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
-        }
-        else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Delivered)
-        {
-            AndroidNotificationCenter.CancelNotification(notic_identifier);
-            notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
-        }
-        else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Unknown)
-        {
-            notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
-        }       
+        //if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Scheduled)
+        //{
+        //    AndroidNotificationCenter.CancelNotification(notic_identifier);
+        //    notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
+        //}
+        //else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Delivered)
+        //{
+        //    AndroidNotificationCenter.CancelNotification(notic_identifier);
+        //    notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
+        //}
+        //else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Unknown)
+        //{
+        //    notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
+        //}       
 #endif
 
     }
@@ -130,6 +135,7 @@ public class TimerManager : MonoBehaviour
     public void SetTimer(DateTime time) 
     {
         var temp_CurrentTimer = time;
+        
         hourInput.SetCurrentInput(temp_CurrentTimer.Hour);
         minuteInput.SetCurrentInput(temp_CurrentTimer.Minute);
     }
@@ -150,8 +156,9 @@ public class TimerManager : MonoBehaviour
             timerEdit_Panel.gameObject.SetActive(false);
         } 
         catch 
-        { 
-        
+        {
+
+            Debug.Log("Wrong Time format");
         
         }
     

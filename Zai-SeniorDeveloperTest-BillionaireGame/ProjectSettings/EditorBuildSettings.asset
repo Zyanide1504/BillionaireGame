@@ -7,7 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Timer_Scene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    guid: 182881a07abebcb4e8931f2b80d859de
   - enabled: 1
     path: Assets/Scenes/GamePlay.unity
     guid: f3dcad4b337229042b2d0ebc149efd08

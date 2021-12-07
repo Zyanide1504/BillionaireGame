@@ -26,13 +26,13 @@ public class TimerInput_panel : MonoBehaviour
     private bool dragging = false;
     private int objDistance;
 
-    [HideInInspector]
-    public int minObjnum;
+    
+    public int minObjnum = 0;
 
     public string current_input;
 
 
-    void Start()
+    void Awake()
     {
         for (int i = 0; i < max_number; i++) 
         {
@@ -139,7 +139,7 @@ public class TimerInput_panel : MonoBehaviour
 
     public void UpdateCurrentInput() 
     {
-
+        Debug.Log(contentObj[minObjnum].GetComponent<Text>().text);
         current_input = contentObj[minObjnum].GetComponent<Text>().text;
     }
 
