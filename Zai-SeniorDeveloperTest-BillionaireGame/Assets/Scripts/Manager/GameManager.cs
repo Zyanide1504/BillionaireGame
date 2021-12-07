@@ -81,11 +81,15 @@ public class GameManager : MonoBehaviour
 
         yield return StartCoroutine(questionCard_Panel.FlipAllCard());
 
-        StartCoroutine(questionCard_Panel.HideAllCard());
+        yield return new WaitForSeconds(1f);
+
+        yield return StartCoroutine(questionCard_Panel.HideAllCard());
+
+        yield return new WaitForSeconds(2f);
 
         yield return StartCoroutine(question_Panel.Setup_QuestionPanel());
         gameOverCountDown = StartCoroutine(timer_manager.GameOverCountDown());
-         
+
         yield return null;
     }
 

@@ -14,19 +14,22 @@ public class Card : MonoBehaviour
 
     public bool isReveal;
 
+    public Animator animator;
+
+
     public IEnumerator FlipCard()
     {
-        card_Back.SetActive(!card_Back.active);
-
-        if (!card_Back.active)
+        if (!isReveal)
         {
+            animator.SetTrigger("FlipUp");
+
             isReveal = true;
         }
         else 
         {
+            animator.SetTrigger("FlipDown");
             isReveal = false;
         }
-
         yield return null;
     }
 
@@ -34,13 +37,14 @@ public class Card : MonoBehaviour
     public IEnumerator ShowCard() 
     {
       
-        this.gameObject.SetActive(true);
+        animator.SetTrigger("SlideIN");
         yield return null;
     }
 
     public IEnumerator HideCard()
     {
-        this.gameObject.SetActive(false);
+       
+        animator.SetTrigger("SlideOut");
         yield return null;
     }
 

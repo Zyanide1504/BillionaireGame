@@ -16,6 +16,7 @@ public class QuestionCard_Panel : MonoBehaviour
     {
         foreach(var x in question_CardList) 
         {
+            yield return new WaitForSeconds(0.5f);
             StartCoroutine(x.ShowCard());
         }
 
@@ -64,9 +65,9 @@ public class QuestionCard_Panel : MonoBehaviour
 
                 StartCoroutine(x.FlipCard());
         }
-        
-        yield return new WaitForSeconds(2);
 
+
+        yield return null;
     }
 
     public IEnumerator SetUpQuestionCardPanel() 
@@ -77,6 +78,7 @@ public class QuestionCard_Panel : MonoBehaviour
         }
 
         StartCoroutine(ShowAllCard());
+        yield return new WaitForSeconds(3f);
         Setinteract_AllCard(true);
 
         yield return null;
