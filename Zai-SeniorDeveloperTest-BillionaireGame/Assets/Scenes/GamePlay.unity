@@ -5155,6 +5155,8 @@ MonoBehaviour:
   music_Clip_List:
   - clipName: music01
     clip: {fileID: 8300000, guid: f3f4ebd75dc161d43a85ca05576d45f8, type: 3}
+  - clipName: music02
+    clip: {fileID: 8300000, guid: ea517033db5e4fe4b917399f8447328b, type: 3}
   NPC_audioClip:
   - Category_Name: Welcome
     clip_list:

@@ -22,14 +22,20 @@ public class AudioManager : MonoBehaviour
     public void Start()
     {
         soudEffect_AudioSource = new List<AudioSource>();
+        PlayBG_Music();
+
+        
     }
 
 
     public void Update()
      {
-        if (!music_AudioSource.isPlaying) 
+        if (playBG_music) 
         {
-            RandomBG_Music();
+            if (!music_AudioSource.isPlaying)
+            {
+                RandomBG_Music();
+            }
         }
      }
 
@@ -37,7 +43,6 @@ public class AudioManager : MonoBehaviour
     {
         
         var audioClip = music_Clip_List[Random.Range(0, music_Clip_List.Count)];
-        Debug.Log(previous_music.clipName != audioClip.clipName);
         if (previous_music.clipName != audioClip.clipName) 
         {
             previous_music = audioClip;
@@ -47,14 +52,43 @@ public class AudioManager : MonoBehaviour
 
     }
 
+    public void PlayBG_Music() 
+    {
+        playBG_music = true;
+    }
+
+    public void StopBG_Music() 
+    {
+        music_AudioSource.Stop();
+        playBG_music = false;
+    }
+
+
     public void _Play(AudioSource source , AudioClip clip) 
     {
         source.clip = clip;
         source.Play();
     }
-    public void PlaySoundEffect(AudioClip clip)
+    public void PlaySoundEffect(AudioClip clip, float volume)
     {
-      
+        foreach (var x in soudEffect_AudioSource) 
+        {
+            if (!x.isPlaying) 
+            {
+                x.clip = clip;
+                x.volume = volume;
+                x.Play();
+
+                return;
+            }
+        }
+
+        var temp_AudioSource = this.gameObject.AddComponent<AudioSource>();
+        temp_AudioSource.clip = clip;
+        temp_AudioSource.volume = volume;
+        temp_AudioSource.Play();
+
+        soudEffect_AudioSource.Add(temp_AudioSource);
     }
 
     public IEnumerator IE_PlaySoundEffect() 
