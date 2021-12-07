@@ -74,7 +74,7 @@ public class Helper_Manager : MonoBehaviour
                 
                 }
 
-                temp_wrongAns = select_wrongAns[Random.RandomRange(0, select_wrongAns.Count - 1)].GetComponent<AnswerButton>().answer;
+                temp_wrongAns = select_wrongAns[Random.RandomRange(0, select_wrongAns.Count)].GetComponent<AnswerButton>().answer;
                 Debug.Log(temp_wrongAns);
 
                 gameManager.question_Panel.hintButton(System.Array.IndexOf(choice, temp_wrongAns));
