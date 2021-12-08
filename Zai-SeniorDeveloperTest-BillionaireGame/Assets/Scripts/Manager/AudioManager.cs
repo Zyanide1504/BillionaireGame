@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -23,8 +24,7 @@ public class AudioManager : MonoBehaviour
     {
         soudEffect_AudioSource = new List<AudioSource>();
         PlayBG_Music();
-
-        
+        PlayRandom_IN_NPC_Category("Welcome");
     }
 
 
@@ -91,10 +91,19 @@ public class AudioManager : MonoBehaviour
         soudEffect_AudioSource.Add(temp_AudioSource);
     }
 
-    public IEnumerator IE_PlaySoundEffect() 
+    public void PlayRandom_IN_NPC_Category(string categoryName) 
     {
 
-        yield return null;
+        RandomPlay_by_Category(NPC_audioClip, npcSpeak_AudioSource, categoryName);
+    }
+
+
+    public void RandomPlay_by_Category(List<Audio_ClipCategory> audio_list,AudioSource audioSource , string categoryName) 
+    {
+        var clip_in_category = audio_list.Where(x => x.Category_Name == categoryName).SingleOrDefault().clip_list;
+        var select_Clip = clip_in_category[Random.Range(0, clip_in_category.Count)];
+        audioSource.clip = select_Clip.clip;
+        audioSource.Play();
     }
 
 

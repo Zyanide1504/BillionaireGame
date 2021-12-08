@@ -6,25 +6,44 @@ using UnityEngine.UI;
 public class QuestionPanel : MonoBehaviour
 {
     private GameManager gameManager;
+    public Animator question_anim;
     public Text question_Text;
-    public List<Button> ans_Buttonlist;
+    public List<AnswerButton> ans_Buttonlist;
 
     public void Start()
     {
         gameManager = GameManager.Instance;
-        HideQuestionPanel();
+        gameObject.SetActive(false);
     }
 
-    public void ShowQuestionPanel() 
+    public IEnumerator ShowQuestionPanel() 
     {
-        this.gameObject.SetActive(true);
+        question_anim.SetTrigger("ShowQuestion");
 
+        yield return new WaitForSeconds(1);
+
+        for (int i = 0; i < ans_Buttonlist.Count; i++) 
+        {
+            ans_Buttonlist[i].GetComponent<AnswerButton>().ShowAnswer();
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        yield return null;
     }
 
-    public void HideQuestionPanel()
+    public IEnumerator HideQuestionPanel()
     {
-        this.gameObject.SetActive(false);
 
+        for (int i = ans_Buttonlist.Count-1; i > -1; i--)
+        {
+            Debug.Log(i);
+            StartCoroutine(ans_Buttonlist[i].GetComponent<AnswerButton>().HideAnswer());
+            yield return new WaitForSeconds(0.25f);
+        }
+
+        question_anim.SetTrigger("HideQuestion");
+
+        yield return null;
     }
 
     public void Ini_Button() 
@@ -34,9 +53,8 @@ public class QuestionPanel : MonoBehaviour
         ans_Buttonlist[2].GetComponent<AnswerButton>().answer = "C";
         ans_Buttonlist[3].GetComponent<AnswerButton>().answer = "D";
 
-
         ResetAllButtonColor();
-        ShowAllButton();
+        SetActiveAllButton();
     }
 
     public void ResetAllButtonColor()
@@ -47,7 +65,7 @@ public class QuestionPanel : MonoBehaviour
         }
     }
 
-    public void ShowAllButton()
+    public void SetActiveAllButton()
     {
         foreach (var x in ans_Buttonlist)
         {
@@ -65,14 +83,14 @@ public class QuestionPanel : MonoBehaviour
     {
         foreach (var x in ans_Buttonlist)
         {
-            x.interactable = interact;
+            x.button.interactable = interact;
         }
     }
 
 
     public IEnumerator Setup_QuestionPanel()
     {
-        ShowQuestionPanel();
+        
         Ini_Button();
         question_Text.text = gameManager.api_Manager.current_Question.question;
         question_Text.GetComponent<Text_ForThaiFont>().AdjustText();
@@ -80,13 +98,13 @@ public class QuestionPanel : MonoBehaviour
         ans_Buttonlist[1].transform.GetComponentInChildren<Text>().text = "B. "+ gameManager.api_Manager.current_Question.choiceB;
         ans_Buttonlist[2].transform.GetComponentInChildren<Text>().text = "C. "+gameManager.api_Manager.current_Question.choiceC;
         ans_Buttonlist[3].transform.GetComponentInChildren<Text>().text = "D. "+gameManager.api_Manager.current_Question.choiceD;
-
-        foreach (var x in ans_Buttonlist) 
+        foreach (var x in ans_Buttonlist)
         {
-          x.transform.GetComponentInChildren<Text>().GetComponent<Text_ForThaiFont>().AdjustText();
+            x.transform.GetComponentInChildren<Text>().GetComponent<Text_ForThaiFont>().AdjustText();
         }
 
-
+        gameObject.SetActive(true);
+        yield return StartCoroutine(ShowQuestionPanel());
         Set_AnswerButtonInteract(true);
         yield return null;
     }

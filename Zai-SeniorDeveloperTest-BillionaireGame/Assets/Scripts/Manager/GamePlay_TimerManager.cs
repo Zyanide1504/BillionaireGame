@@ -9,6 +9,8 @@ public class GamePlay_TimerManager : MonoBehaviour
     public Text timer_Text;
     public Animator animator;
     public float timer;
+
+    private bool isShow;
     
 
     // Start is called before the first frame update
@@ -20,18 +22,27 @@ public class GamePlay_TimerManager : MonoBehaviour
 
     public void ShowTimer() 
     {
-        animator.SetTrigger("ShowTimer");
+        if (!isShow)
+        {
+            animator.SetTrigger("ShowTimer");
+            isShow = true;
+        }
     }
 
     public void HideTimer()
     {
-        animator.SetTrigger("HideTimer");
+        if (isShow)
+        {
+            animator.SetTrigger("HideTimer");
+            isShow = false;
+        }
     }
 
     public IEnumerator GameOverCountDown() 
     {
         yield return new WaitForSeconds(gameManager.delay_countDown);
         ShowTimer();
+        gameManager.helper_Manager.ShowHelperBar();
         timer = gameManager.gameOverTime;
 
         while (timer > 0)
@@ -42,7 +53,9 @@ public class GamePlay_TimerManager : MonoBehaviour
             timer_Text.text = showtime.ToString();
         }
 
-       gameManager.OnGameOver();
+        gameManager.question_Panel.Set_AnswerButtonInteract(false);
+        gameManager.helper_Manager.HideHelperBar();
+        gameManager.OnGameOver();
     }
 
 

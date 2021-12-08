@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [Header("Manager")]
     public API_Manager api_Manager;
+    public AudioManager audio_Manager;
     public GamePlay_TimerManager timer_manager;
     public Score_Manager score_Manager;
     public Helper_Manager helper_Manager;
@@ -101,12 +102,24 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator IE_OnSelectAnswer(string answer)
     {
+        helper_Manager.HideHelperBar();
+
         if (answer == api_Manager.current_Question.answer)
         {
             score_Manager.AddScore(api_Manager.current_Question.score);
             timer_manager.HideTimer();
-            question_Panel.HideQuestionPanel();
-            StartCoroutine(questionCard_Panel.SetUpQuestionCardPanel());
+
+            //---------ลงตัวละครเฉลิยตรงนี้
+
+            if (score_Manager.GetScore() < win_Score)
+            {
+                yield return StartCoroutine(question_Panel.HideQuestionPanel());
+                StartCoroutine(questionCard_Panel.SetUpQuestionCardPanel());
+            }
+            else 
+            {
+                OnWin();
+            }
         }
         else
         {
@@ -124,6 +137,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator IE_OnWin()
     {
+        helper_Manager.HideHelperBar();
         Debug.Log("Win");
 
         yield return new WaitForSeconds(3f);
