@@ -92,7 +92,7 @@ public class Helper_Manager : MonoBehaviour
         {
             case "IDK":
 
-                gameManager.audio_Manager.PlayRandom_IN_NPC_Category("IDK");
+                StartCoroutine(gameManager.audio_Manager.PlayRandom_IN_NPC_Category("IDK"));
 
                 break;
 

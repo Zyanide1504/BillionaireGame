@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
     {
         soudEffect_AudioSource = new List<AudioSource>();
         PlayBG_Music();
-        PlayRandom_IN_NPC_Category("Welcome");
+       
     }
 
 
@@ -94,10 +94,14 @@ public class AudioManager : MonoBehaviour
         soudEffect_AudioSource.Add(temp_AudioSource);
     }
 
-    public void PlayRandom_IN_NPC_Category(string categoryName) 
+    public IEnumerator PlayRandom_IN_NPC_Category(string categoryName) 
     {
-
         RandomPlay_by_Category(NPC_audioClip, npcSpeak_AudioSource, categoryName);
+
+        while (npcSpeak_AudioSource.isPlaying)
+        {
+            yield return null;
+        }
     }
 
 

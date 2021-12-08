@@ -2063,10 +2063,10 @@ RectTransform:
   m_Father: {fileID: 1526101620}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.063}
-  m_AnchorMax: {x: 1, y: 0.52400005}
-  m_AnchoredPosition: {x: 0, y: -0.6000061}
-  m_SizeDelta: {x: 0, y: -8.099998}
+  m_AnchorMin: {x: 0, y: 0.08728432}
+  m_AnchorMax: {x: 1, y: 0.5467345}
+  m_AnchoredPosition: {x: 0, y: -2.5}
+  m_SizeDelta: {x: 0, y: -7.0999985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &609881235
 MonoBehaviour:
@@ -2744,10 +2744,10 @@ RectTransform:
   m_Father: {fileID: 1526101620}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5467345}
-  m_AnchorMax: {x: 1, y: 0.9274782}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -93.5, y: -33.4}
+  m_AnchorMin: {x: 0, y: 0.57918954}
+  m_AnchorMax: {x: 1, y: 0.91800004}
+  m_AnchoredPosition: {x: 0, y: 0.5}
+  m_SizeDelta: {x: -93.5, y: -2.4000015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &860451751
 MonoBehaviour:
@@ -3583,10 +3583,10 @@ RectTransform:
   m_Father: {fileID: 1433267837}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.00000095367, y: 370.61}
-  m_SizeDelta: {x: 708.3, y: 630.4}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -339.69272}
+  m_SizeDelta: {x: -91.70001, y: -789.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1076861462
 MonoBehaviour:
@@ -6696,13 +6696,21 @@ MonoBehaviour:
     - clipName: Welcome1
       clip: {fileID: 8300000, guid: 8c704f3c0ac146549a7ef7ccabd003d5, type: 3}
     - clipName: Welcome2
-      clip: {fileID: 8300000, guid: 2d2bb41969c6cf048933b754ac11a7c0, type: 3}
+      clip: {fileID: 8300000, guid: 3faa1879d1a16f74dba472970e6bb0ab, type: 3}
+    - clipName: Welcome3
+      clip: {fileID: 8300000, guid: 78d5bcfa220747a4a8c3d04a6c2b3055, type: 3}
+    - clipName: Welcome4
+      clip: {fileID: 8300000, guid: 3fabf6f3b638b9b439ab4e29a0ff410b, type: 3}
   - Category_Name: IDK
     clip_list:
     - clipName: IDK1
-      clip: {fileID: 8300000, guid: 8385d817de1834b4da4d588b89d3fae1, type: 3}
+      clip: {fileID: 8300000, guid: 18130251c4d94554aa2eaa79efcb9225, type: 3}
     - clipName: IDK2
-      clip: {fileID: 8300000, guid: fb0b76713edd18e4b8087dc6d9d106d3, type: 3}
+      clip: {fileID: 8300000, guid: 75075b837b81c504d8c7083aa7357316, type: 3}
+    - clipName: IDK3
+      clip: {fileID: 8300000, guid: 8f530a440a907e9429184e93e380af08, type: 3}
+    - clipName: IDK4
+      clip: {fileID: 8300000, guid: b07ecbc04d63243459fa0246d88c3474, type: 3}
   - Category_Name: StartCountDown
     clip_list:
     - clipName: StartCountDown01
@@ -6717,3 +6725,25 @@ MonoBehaviour:
       clip: {fileID: 8300000, guid: 5844f03e65ef88d48b2b33837a0cc36f, type: 3}
     - clipName: StartCountDown06
       clip: {fileID: 8300000, guid: eb6415338676de9498fe4142a2539a1e, type: 3}
+  - Category_Name: WrongAns
+    clip_list:
+    - clipName: 
+      clip: {fileID: 8300000, guid: dfd567679920dcb4b87b206702c0ec7b, type: 3}
+  - Category_Name: RightAns
+    clip_list:
+    - clipName: RightAns01
+      clip: {fileID: 8300000, guid: fe763c7cba3f12a47a2195c75eb7543a, type: 3}
+  - Category_Name: SelectQuestionCard
+    clip_list:
+    - clipName: SelectQuestionCard01
+      clip: {fileID: 8300000, guid: 628f77f7fed7c4048956f63a4c0c2eeb, type: 3}
+  - Category_Name: GameOver
+    clip_list:
+    - clipName: 
+      clip: {fileID: 8300000, guid: dfd567679920dcb4b87b206702c0ec7b, type: 3}
+  - Category_Name: Win
+    clip_list: []
+  - Category_Name: GiveRightAns
+    clip_list: []
+  - Category_Name: GiveWrongAns
+    clip_list: []

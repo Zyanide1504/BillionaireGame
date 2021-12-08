@@ -42,14 +42,12 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartGame() 
     {
         yield return StartCoroutine(api_Manager.Get_QuestionList());
-        SetUpQuestionPanel();
-    }
+        yield return StartCoroutine(audio_Manager.PlayRandom_IN_NPC_Category("Welcome"));
+        yield return new WaitForSeconds(0.5f);
 
-    public void SetUpQuestionPanel() 
-    {
+        
         StartCoroutine(questionCard_Panel.SetUpQuestionCardPanel());
     }
-
 
     public void OnCardSelect(int score) 
     {
@@ -113,7 +111,8 @@ public class GameManager : MonoBehaviour
             score_Manager.AddScore(api_Manager.current_Question.score);
             timer_manager.HideTimer();
 
-            //---------ลงตัวละครเฉลิยตรงนี้
+
+            yield return StartCoroutine(audio_Manager.PlayRandom_IN_NPC_Category("RightAns"));
 
             if (score_Manager.GetScore() < win_Score)
             {
@@ -128,6 +127,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            yield return StartCoroutine(audio_Manager.PlayRandom_IN_NPC_Category("WrongAns"));
             OnGameOver();
         }
 

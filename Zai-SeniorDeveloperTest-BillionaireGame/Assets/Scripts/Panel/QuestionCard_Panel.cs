@@ -71,6 +71,7 @@ public class QuestionCard_Panel : MonoBehaviour
 
     public IEnumerator SetUpQuestionCardPanel() 
     {
+        StartCoroutine(gameManager.audio_Manager.PlayRandom_IN_NPC_Category("SelectQuestionCard"));
 
         for (int i = 0; i < question_CardList.Count; i++)
         {
