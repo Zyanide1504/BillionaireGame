@@ -7,6 +7,7 @@ public class GamePlay_TimerManager : MonoBehaviour
 {
     private GameManager gameManager;
     public Text timer_Text;
+    public Animator animator;
     public float timer;
     
 
@@ -14,17 +15,17 @@ public class GamePlay_TimerManager : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.Instance;
-        gameObject.SetActive(false);
+        
     }
 
     public void ShowTimer() 
     {
-        gameObject.SetActive(true);
+        animator.SetTrigger("ShowTimer");
     }
 
     public void HideTimer()
     {
-        gameObject.SetActive(false);
+        animator.SetTrigger("HideTimer");
     }
 
     public IEnumerator GameOverCountDown() 
