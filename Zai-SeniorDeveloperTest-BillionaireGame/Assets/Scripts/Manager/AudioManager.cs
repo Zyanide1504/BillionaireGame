@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     List<AudioSource> soudEffect_AudioSource;
     [Header("Audio Clip Section")]
     public List<Audio_Clip> music_Clip_List;
+    public List<Audio_Clip> SoundEffect_Clip_List;
     public List<Audio_ClipCategory> NPC_audioClip;
 
 

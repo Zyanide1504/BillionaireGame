@@ -43,7 +43,9 @@ public class QuestionPanel : MonoBehaviour
 
         question_anim.SetTrigger("HideQuestion");
 
-        yield return null;
+        yield return new WaitForSeconds(0.5f);
+
+        gameObject.SetActive(false);
     }
 
     public void Ini_Button() 
