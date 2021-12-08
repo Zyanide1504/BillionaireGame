@@ -36,7 +36,7 @@ public class QuestionPanel : MonoBehaviour
 
         for (int i = ans_Buttonlist.Count-1; i > -1; i--)
         {
-            Debug.Log(i);
+            
             StartCoroutine(ans_Buttonlist[i].GetComponent<AnswerButton>().HideAnswer());
             yield return new WaitForSeconds(0.25f);
         }

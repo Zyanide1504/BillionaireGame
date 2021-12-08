@@ -55,7 +55,6 @@ public class GamePlay_TimerManager : MonoBehaviour
         }
 
         gameManager.question_Panel.Set_AnswerButtonInteract(false);
-        gameManager.helper_Manager.HideHelperBar();
         gameManager.OnGameOver();
     }
 

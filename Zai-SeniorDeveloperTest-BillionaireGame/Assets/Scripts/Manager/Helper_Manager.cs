@@ -98,12 +98,16 @@ public class Helper_Manager : MonoBehaviour
 
             case "WrongANS":
 
+
+                StartCoroutine(gameManager.audio_Manager.PlayRandom_IN_NPC_Category("GiveWrongAns"));
                 HintWorngAnswer();
 
                 break;
 
             case "ANS":
 
+
+                StartCoroutine(gameManager.audio_Manager.PlayRandom_IN_NPC_Category("GiveRightAns"));
                 var temp_ans = gameManager.api_Manager.current_Question.answer;
                 gameManager.question_Panel.hintButton(System.Array.IndexOf(choice, temp_ans));
 

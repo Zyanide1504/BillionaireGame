@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     [Header("other Reference")]
     public Question_Card currentCard;
+    public Notic_Script noticScript;
 
 
     [Header("Game Setting")]
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        
         Instance = this;
     }
     private void Start()
@@ -106,6 +108,7 @@ public class GameManager : MonoBehaviour
         currentCard.SetScore(score);
         StartCoroutine(currentCard.ShowAndFlip());
 
+        StartCoroutine(audio_Manager.PlayRandom_IN_NPC_Category("SeeQuestion"));
         yield return StartCoroutine(question_Panel.Setup_QuestionPanel());
         gameOverCountDown = StartCoroutine(timer_manager.GameOverCountDown());
 
@@ -121,11 +124,12 @@ public class GameManager : MonoBehaviour
     public IEnumerator IE_OnSelectAnswer(string answer)
     {
         helper_Manager.HideHelperBar();
+        timer_manager.HideTimer();
 
         if (answer == api_Manager.current_Question.answer)
         {
             score_Manager.AddScore(api_Manager.current_Question.score);
-            timer_manager.HideTimer();
+            
 
 
             yield return StartCoroutine(audio_Manager.PlayRandom_IN_NPC_Category("RightAns"));
@@ -154,40 +158,36 @@ public class GameManager : MonoBehaviour
     public void OnWin() 
     {
         PlayerPrefs.SetInt("WinCount",PlayerPrefs.GetInt("WinCount") +1);
-        StartCoroutine(IE_OnWin());
+        StartCoroutine(IE_OnGameEnd("Win", "ชนะแล้ว"));
     }
 
-    public IEnumerator IE_OnWin()
-    {
-        helper_Manager.HideHelperBar();
-        Debug.Log("Win");
-
-        yield return new WaitForSeconds(3f);
-
-        SceneManager.LoadScene(0);
-
-        yield return null;
-    }
 
     public void OnGameOver()
     {
-        StartCoroutine(IE_OnGameOver());
+        StartCoroutine(IE_OnGameEnd("GameOver", "แพ้แล้ว"));
     }
 
-    public IEnumerator IE_OnGameOver()
+    public IEnumerator IE_OnGameEnd(string result,string noticString)
     {
-        Debug.Log("GameOver");
-
-        yield return new WaitForSeconds(3f);
+        timer_manager.HideTimer();
+        helper_Manager.HideHelperBar();
+        Debug.Log(result);
+        StartCoroutine(question_Panel.HideQuestionPanel());
+        noticScript.ShowNotic(noticString);
+        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(audio_Manager.PlayRandom_IN_NPC_Category(result));
+        yield return new WaitForSeconds(2f);
 
         SceneManager.LoadScene(0);
 
         yield return null;
+
     }
 
 
 
 
 
-}
+
+    }
 
