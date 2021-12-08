@@ -982,9 +982,9 @@ RectTransform:
   m_Father: {fileID: 1653933730}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 677.95, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 677.95, y: 0}
   m_SizeDelta: {x: 244.1, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &330840836
@@ -7004,7 +7004,7 @@ MonoBehaviour:
     score: 15
   current_win_Score: 50
   win_Score_addPerWin: 10
-  max_winScore: 5
+  max_winScore: 999
   delay_countDown: 10
   gameOverTime: 20
   revealAllCard_delay: 2
@@ -7059,6 +7059,8 @@ MonoBehaviour:
       clip: {fileID: 8300000, guid: 78d5bcfa220747a4a8c3d04a6c2b3055, type: 3}
     - clipName: Welcome4
       clip: {fileID: 8300000, guid: 3fabf6f3b638b9b439ab4e29a0ff410b, type: 3}
+    - clipName: Welcome5
+      clip: {fileID: 8300000, guid: 1587b2291e8ee5a48b4d78195f83d732, type: 3}
   - Category_Name: IDK
     clip_list:
     - clipName: IDK1
@@ -7083,39 +7085,111 @@ MonoBehaviour:
       clip: {fileID: 8300000, guid: 5844f03e65ef88d48b2b33837a0cc36f, type: 3}
     - clipName: StartCountDown06
       clip: {fileID: 8300000, guid: eb6415338676de9498fe4142a2539a1e, type: 3}
+    - clipName: StartCountDown07
+      clip: {fileID: 8300000, guid: 9e3c658032799a44eb12d5b6ba968a6e, type: 3}
+    - clipName: StartCountDown08
+      clip: {fileID: 8300000, guid: 244bdbbd9d2340149bcf842c01a4c49e, type: 3}
   - Category_Name: WrongAns
     clip_list:
-    - clipName: 
+    - clipName: WrongAns01
       clip: {fileID: 8300000, guid: dfd567679920dcb4b87b206702c0ec7b, type: 3}
+    - clipName: WrongAns02
+      clip: {fileID: 8300000, guid: 7a515e63396aa06419d3ce5da429edb7, type: 3}
+    - clipName: WrongAns03
+      clip: {fileID: 8300000, guid: d5a5c1f511d43214990b22958d6735d5, type: 3}
+    - clipName: WrongAns04
+      clip: {fileID: 8300000, guid: 0812d25906091fe41b7ef63d94413e09, type: 3}
+    - clipName: WrongAns05
+      clip: {fileID: 8300000, guid: 429b84f660fba4b4ebbbd492b0c9c224, type: 3}
+    - clipName: WrongAns06
+      clip: {fileID: 8300000, guid: ab9b039ba24a6da4a90fb9868e56a148, type: 3}
   - Category_Name: RightAns
     clip_list:
     - clipName: RightAns01
       clip: {fileID: 8300000, guid: fe763c7cba3f12a47a2195c75eb7543a, type: 3}
+    - clipName: RightAns02
+      clip: {fileID: 8300000, guid: 4c832d33244c618428583dc15645ad96, type: 3}
+    - clipName: RightAns03
+      clip: {fileID: 8300000, guid: 20c49720f5a2bbf44a6bd695eac57337, type: 3}
+    - clipName: RightAns04
+      clip: {fileID: 8300000, guid: c518f5f47a33ab343916311ae5814fcd, type: 3}
+    - clipName: RightAns05
+      clip: {fileID: 8300000, guid: 9aaa93d3d2f071b4687cdcb5a6e58794, type: 3}
   - Category_Name: SelectQuestionCard
     clip_list:
     - clipName: SelectQuestionCard01
       clip: {fileID: 8300000, guid: 628f77f7fed7c4048956f63a4c0c2eeb, type: 3}
+    - clipName: SelectQuestionCard02
+      clip: {fileID: 8300000, guid: 16dc01093f345bc44ae54feaedabd3ca, type: 3}
+    - clipName: SelectQuestionCard03
+      clip: {fileID: 8300000, guid: a7abf8761aa7a33439089f5b194be4a9, type: 3}
+    - clipName: SelectQuestionCard04
+      clip: {fileID: 8300000, guid: 419cab2efa2370d4d8dc5bf7f76fb0e1, type: 3}
+    - clipName: SelectQuestionCard05
+      clip: {fileID: 8300000, guid: 1ad7a0b0952446b488695751a4e295bf, type: 3}
   - Category_Name: GameOver
     clip_list:
     - clipName: GameOver01
       clip: {fileID: 8300000, guid: 4a7fa77b4da699041be18ffc4beadef3, type: 3}
+    - clipName: GameOver02
+      clip: {fileID: 8300000, guid: 248eb228fbb1572429a90c60768f4875, type: 3}
+    - clipName: GameOver03
+      clip: {fileID: 8300000, guid: 2b44fb5cc47507441a65e2653fe6eedb, type: 3}
+    - clipName: GameOver04
+      clip: {fileID: 8300000, guid: d57c8d3ec8c0689409e82f456160ce45, type: 3}
+    - clipName: GameOver05
+      clip: {fileID: 8300000, guid: 0523770bdb21c2a498ff875670ed143d, type: 3}
   - Category_Name: Win
     clip_list:
     - clipName: Win01
       clip: {fileID: 8300000, guid: 86989cd3bb7569c42a101f472d004a86, type: 3}
+    - clipName: Win02
+      clip: {fileID: 8300000, guid: e76d4b480e93fa946ad99703517de00a, type: 3}
+    - clipName: Win03
+      clip: {fileID: 8300000, guid: f0df35447c8ced847b70851cef943df3, type: 3}
+    - clipName: Win04
+      clip: {fileID: 8300000, guid: 71330d99ee6f2aa4f91eb46e6d38edbd, type: 3}
+    - clipName: Win05
+      clip: {fileID: 8300000, guid: ff50a6de867724040b5628f367c18125, type: 3}
   - Category_Name: GiveRightAns
     clip_list:
     - clipName: GiveRightAns01
       clip: {fileID: 8300000, guid: f45e35a7217f5514ca71a1a1e6ac431e, type: 3}
+    - clipName: GiveRightAns02
+      clip: {fileID: 8300000, guid: b6c74397e0c309f4fa87fcc0b380a41e, type: 3}
+    - clipName: GiveRightAns03
+      clip: {fileID: 8300000, guid: 0befa0f867e5f9441866ea51cd929467, type: 3}
+    - clipName: GiveRightAns04
+      clip: {fileID: 8300000, guid: a9bb82ec2d6f1fd42b1df809ad7f3008, type: 3}
   - Category_Name: GiveWrongAns
     clip_list:
     - clipName: GiveWrongAns01
       clip: {fileID: 8300000, guid: a0252d2ac1f30fd4a86be7a4e4b4e34c, type: 3}
+    - clipName: GiveWrongAns02
+      clip: {fileID: 8300000, guid: f0dc9fb8e5d93354b8f9bfbb1e36b7c5, type: 3}
+    - clipName: GiveWrongAns03
+      clip: {fileID: 8300000, guid: cf9e73fb19717f944a189b0804e55073, type: 3}
+    - clipName: GiveWrongAns04
+      clip: {fileID: 8300000, guid: 2ad6655fec7296c499d742b12646ebe3, type: 3}
+    - clipName: GiveWrongAns05
+      clip: {fileID: 8300000, guid: 96cde7313567b91459093de4e74514f2, type: 3}
   - Category_Name: SeeQuestion
     clip_list:
-    - clipName: SeeQuestion
+    - clipName: SeeQuestion01
       clip: {fileID: 8300000, guid: bfa6706c185482340adea443212e73eb, type: 3}
+    - clipName: SeeQuestion02
+      clip: {fileID: 8300000, guid: 88bce71cc5e49c141b7a4baf51679023, type: 3}
+    - clipName: SeeQuestion03
+      clip: {fileID: 8300000, guid: e4efce15daf456242a6e7983fc5ceea4, type: 3}
+    - clipName: SeeQuestion04
+      clip: {fileID: 8300000, guid: 5a464e70b8af56e4bb34319ddfb0e717, type: 3}
   - Category_Name: TimeOut
     clip_list:
     - clipName: TimeOut01
-      clip: {fileID: 8300000, guid: bfa6706c185482340adea443212e73eb, type: 3}
+      clip: {fileID: 8300000, guid: c3443d0f884030d42a96325dc531c667, type: 3}
+    - clipName: TimeOut02
+      clip: {fileID: 8300000, guid: 3be75f4936d4a5e449a53f6f631cb91b, type: 3}
+    - clipName: TimeOut03
+      clip: {fileID: 8300000, guid: 453efcbdfa674bc43aa6c169a428ff6c, type: 3}
+    - clipName: TimeOut04
+      clip: {fileID: 8300000, guid: 5332742cc069a8246999c8c1c0f0b573, type: 3}

@@ -55,6 +55,7 @@ public class GamePlay_TimerManager : MonoBehaviour
         }
 
         gameManager.question_Panel.Set_AnswerButtonInteract(false);
+        yield return gameManager.audio_Manager.PlayRandom_IN_NPC_Category("TimeOut");
         gameManager.OnGameOver();
     }
 

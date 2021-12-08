@@ -16,7 +16,6 @@ public class AudioManager : MonoBehaviour
     public List<Audio_Clip> SoundEffect_Clip_List;
     public List<Audio_ClipCategory> NPC_audioClip;
 
-
     private bool playBG_music;
     private Audio_Clip previous_music;
 
