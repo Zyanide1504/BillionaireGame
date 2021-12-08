@@ -11,10 +11,10 @@ public class Question_Card : Card
     [SerializeField]
     private int score;
 
-    private GameManager gameManager;
+  
     public void Start()
     {
-        gameManager = GameManager.Instance;
+        GameManagerInstance();
     }
 
 

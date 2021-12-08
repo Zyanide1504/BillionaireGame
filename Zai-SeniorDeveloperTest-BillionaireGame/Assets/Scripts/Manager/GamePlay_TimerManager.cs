@@ -41,6 +41,7 @@ public class GamePlay_TimerManager : MonoBehaviour
     public IEnumerator GameOverCountDown() 
     {
         yield return new WaitForSeconds(gameManager.delay_countDown);
+        gameManager.audio_Manager.PlayRandom_IN_NPC_Category("StartCountDown");
         ShowTimer();
         gameManager.helper_Manager.ShowHelperBar();
         timer = gameManager.gameOverTime;

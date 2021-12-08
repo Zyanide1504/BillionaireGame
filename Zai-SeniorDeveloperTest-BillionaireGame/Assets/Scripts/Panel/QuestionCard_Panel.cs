@@ -16,8 +16,8 @@ public class QuestionCard_Panel : MonoBehaviour
     {
         foreach(var x in question_CardList) 
         {
-            yield return new WaitForSeconds(0.5f);
             x.ShowCard();
+            yield return new WaitForSeconds(0.5f);
         }
 
         yield return null;

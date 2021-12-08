@@ -15,6 +15,13 @@ public class Card : MonoBehaviour
     public bool isReveal;
     private bool isShow;
     public Animator animator;
+    [HideInInspector]
+    public GameManager gameManager;
+
+    public void GameManagerInstance() 
+    {
+        gameManager = GameManager.Instance;
+    }
 
 
     public void FlipCard()
@@ -22,12 +29,13 @@ public class Card : MonoBehaviour
         if (!isReveal)
         {
             animator.SetTrigger("FlipUp");
-
+            gameManager.audio_Manager.PlaySoundEffect("FlipCard", 0.5f);
             isReveal = true;
         }
         else 
         {
             animator.SetTrigger("FlipDown");
+            gameManager.audio_Manager.PlaySoundEffect("FlipCard", 0.5f);
             isReveal = false;
         }
     }
@@ -38,6 +46,7 @@ public class Card : MonoBehaviour
         if (!isShow) 
         {
             animator.SetTrigger("SlideIN");
+            gameManager.audio_Manager.PlaySoundEffect("CardSlide", 1);
             isShow = true;
         }
 
@@ -48,6 +57,7 @@ public class Card : MonoBehaviour
         if (isShow)
         {
             animator.SetTrigger("SlideOut");
+            gameManager.audio_Manager.PlaySoundEffect("CardSlide", 1);
             isShow = false;
         }
     }

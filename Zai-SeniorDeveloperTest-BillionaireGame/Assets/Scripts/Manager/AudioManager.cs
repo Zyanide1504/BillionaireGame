@@ -70,8 +70,10 @@ public class AudioManager : MonoBehaviour
         source.clip = clip;
         source.Play();
     }
-    public void PlaySoundEffect(AudioClip clip, float volume)
+    public void PlaySoundEffect(string clipName, float volume)
     {
+        var clip = SoundEffect_Clip_List.Where(x => x.clipName == clipName).SingleOrDefault().clip;
+
         foreach (var x in soudEffect_AudioSource) 
         {
             if (!x.isPlaying) 

@@ -1052,7 +1052,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2212,7 +2212,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2501,6 +2501,7 @@ MonoBehaviour:
   cardButton: {fileID: 1400307421}
   isReveal: 0
   animator: {fileID: 780248125}
+  gameManager: {fileID: 0}
   score_Text: {fileID: 1904674729}
   score: 0
 --- !u!224 &780248124
@@ -2686,6 +2687,7 @@ MonoBehaviour:
   cardButton: {fileID: 505918333}
   isReveal: 0
   animator: {fileID: 817172071}
+  gameManager: {fileID: 0}
   score_Text: {fileID: 1178269817}
   score: 0
 --- !u!95 &817172071
@@ -3113,6 +3115,7 @@ MonoBehaviour:
   cardButton: {fileID: 68746251}
   isReveal: 0
   animator: {fileID: 920329806}
+  gameManager: {fileID: 0}
   score_Text: {fileID: 494519542}
   score: 0
 --- !u!95 &920329806
@@ -3699,6 +3702,7 @@ MonoBehaviour:
   cardButton: {fileID: 2043574703}
   isReveal: 0
   animator: {fileID: 1107864666}
+  gameManager: {fileID: 0}
   score_Text: {fileID: 1812262280}
   score: 0
 --- !u!95 &1107864666
@@ -6136,6 +6140,7 @@ MonoBehaviour:
   cardButton: {fileID: 980232335}
   isReveal: 0
   animator: {fileID: 1955642011}
+  gameManager: {fileID: 0}
   score_Text: {fileID: 1985444327}
   score: 0
 --- !u!95 &1955642011
@@ -6681,8 +6686,10 @@ MonoBehaviour:
   - clipName: music02
     clip: {fileID: 8300000, guid: ea517033db5e4fe4b917399f8447328b, type: 3}
   SoundEffect_Clip_List:
-  - clipName: 
-    clip: {fileID: 0}
+  - clipName: CardSlide
+    clip: {fileID: 8300000, guid: 70b60b6ff765106458aca6392a797f0a, type: 3}
+  - clipName: FlipCard
+    clip: {fileID: 8300000, guid: fd5263e0b73d4bd4689482c093f8d324, type: 3}
   NPC_audioClip:
   - Category_Name: Welcome
     clip_list:
@@ -6696,3 +6703,17 @@ MonoBehaviour:
       clip: {fileID: 8300000, guid: 8385d817de1834b4da4d588b89d3fae1, type: 3}
     - clipName: IDK2
       clip: {fileID: 8300000, guid: fb0b76713edd18e4b8087dc6d9d106d3, type: 3}
+  - Category_Name: StartCountDown
+    clip_list:
+    - clipName: StartCountDown01
+      clip: {fileID: 8300000, guid: d56e14e43329d6c42a96f468ad100013, type: 3}
+    - clipName: StartCountDown02
+      clip: {fileID: 8300000, guid: b561b86772c964043b914c735789744b, type: 3}
+    - clipName: StartCountDown03
+      clip: {fileID: 8300000, guid: bc25244f2b8ecf54ba2b12d31d699647, type: 3}
+    - clipName: StartCountDown04
+      clip: {fileID: 8300000, guid: 53535d7cba19c1b42969c530e898e7b8, type: 3}
+    - clipName: StartCountDown05
+      clip: {fileID: 8300000, guid: 5844f03e65ef88d48b2b33837a0cc36f, type: 3}
+    - clipName: StartCountDown06
+      clip: {fileID: 8300000, guid: eb6415338676de9498fe4142a2539a1e, type: 3}
