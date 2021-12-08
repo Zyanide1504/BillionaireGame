@@ -17,6 +17,7 @@ public class TimerManager : MonoBehaviour
     public TimerInput_panel hourInput;
     public TimerInput_panel minuteInput;
     public TimerEdit_Panel timerEdit_Panel;
+    public Animator scene_TransitonAnim;
     private DateTime CurrentTimer;
     private AndroidNotificationChannel defaultNotificationChanel;
     private Int32 notic_identifier;
@@ -167,6 +168,13 @@ public class TimerManager : MonoBehaviour
 
     public void StartGame() 
     {
-            SceneManager.LoadScene(1);
+        StartCoroutine(IE_StartGame());
+    }
+
+    public IEnumerator IE_StartGame() 
+    {
+        scene_TransitonAnim.SetTrigger("Hide");
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(1);
     }
 }

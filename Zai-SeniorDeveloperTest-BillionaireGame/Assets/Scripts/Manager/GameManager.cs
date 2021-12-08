@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [Header("other Reference")]
     public Question_Card currentCard;
     public Notic_Script noticScript;
+    public Animator scene_TransitionImage;
 
 
     [Header("Game Setting")]
@@ -177,7 +178,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         yield return StartCoroutine(audio_Manager.PlayRandom_IN_NPC_Category(result));
         yield return new WaitForSeconds(2f);
-
+        scene_TransitionImage.SetTrigger("Hide");
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(0);
 
         yield return null;
