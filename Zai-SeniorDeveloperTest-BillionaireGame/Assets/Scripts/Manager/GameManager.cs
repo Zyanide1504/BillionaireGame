@@ -21,7 +21,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Setting")]
     public List<QuestionScore> card_scorelist;
-    public int win_Score;
+    public int current_win_Score;
+    public int win_Score_addPerWin;
+    public int max_winScore;
     public float delay_countDown;
     public float gameOverTime;
     public float revealAllCard_delay;
@@ -41,11 +43,25 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartGame() 
     {
+        if (PlayerPrefs.HasKey("WinCount"))
+        {
+            current_win_Score += win_Score_addPerWin * PlayerPrefs.GetInt("WinCount");
+
+            if (current_win_Score >= max_winScore) 
+            {
+                current_win_Score = max_winScore;
+            }
+        }
+        else 
+        {
+            PlayerPrefs.SetInt("WinCount", 0);
+        }
+
+        score_Manager.SetWinScore(current_win_Score); 
+
         yield return StartCoroutine(api_Manager.Get_QuestionList());
         yield return StartCoroutine(audio_Manager.PlayRandom_IN_NPC_Category("Welcome"));
         yield return new WaitForSeconds(0.5f);
-
-        
         StartCoroutine(questionCard_Panel.SetUpQuestionCardPanel());
     }
 
@@ -114,7 +130,7 @@ public class GameManager : MonoBehaviour
 
             yield return StartCoroutine(audio_Manager.PlayRandom_IN_NPC_Category("RightAns"));
 
-            if (score_Manager.GetScore() < win_Score)
+            if (score_Manager.GetScore() < current_win_Score)
             {
                 yield return StartCoroutine(question_Panel.HideQuestionPanel());
                 StartCoroutine(currentCard.FlipAndHide());
@@ -137,6 +153,7 @@ public class GameManager : MonoBehaviour
 
     public void OnWin() 
     {
+        PlayerPrefs.SetInt("WinCount",PlayerPrefs.GetInt("WinCount") +1);
         StartCoroutine(IE_OnWin());
     }
 

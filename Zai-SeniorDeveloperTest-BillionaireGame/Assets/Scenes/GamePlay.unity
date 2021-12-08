@@ -984,7 +984,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 178.4, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &330840836
 MonoBehaviour:
@@ -2851,7 +2851,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: -339.99988}
+  m_AnchoredPosition: {x: 0, y: -339.99988}
   m_SizeDelta: {x: 0, y: -680.0001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &877820763
@@ -4687,7 +4687,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '0
+  m_Text: '00/50
 
 '
 --- !u!222 &1502389905
@@ -4860,7 +4860,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: -0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0.00012207}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1535117510
@@ -5100,8 +5100,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 247.49998, y: -630}
-  m_SizeDelta: {x: 305, y: 100}
+  m_AnchoredPosition: {x: 152.5, y: -630}
+  m_SizeDelta: {x: 495, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1653933731
 MonoBehaviour:
@@ -6646,7 +6646,9 @@ MonoBehaviour:
     minChance: 0
     maxChance: 0
     score: 15
-  win_Score: 50
+  current_win_Score: 50
+  win_Score_addPerWin: 10
+  max_winScore: 1000
   delay_countDown: 10
   gameOverTime: 20
   revealAllCard_delay: 2
