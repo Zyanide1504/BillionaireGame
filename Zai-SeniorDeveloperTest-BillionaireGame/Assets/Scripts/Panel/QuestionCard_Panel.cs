@@ -17,7 +17,7 @@ public class QuestionCard_Panel : MonoBehaviour
         foreach(var x in question_CardList) 
         {
             yield return new WaitForSeconds(0.5f);
-            StartCoroutine(x.ShowCard());
+            x.ShowCard();
         }
 
         yield return null;
@@ -37,7 +37,7 @@ public class QuestionCard_Panel : MonoBehaviour
     {
         foreach (var x in question_CardList)
         {
-            StartCoroutine(x.HideCard());
+            x.HideCard();
         }
 
         yield return null;
@@ -50,7 +50,7 @@ public class QuestionCard_Panel : MonoBehaviour
         {
             if (!x.isReveal)
             {
-                StartCoroutine(x.FlipCard());
+                x.FlipCard();
             }
         }
         yield return null;
@@ -62,8 +62,7 @@ public class QuestionCard_Panel : MonoBehaviour
 
         foreach (var x in question_CardList)
         {
-
-                StartCoroutine(x.FlipCard());
+             x.FlipCard();
         }
 
 
@@ -72,6 +71,7 @@ public class QuestionCard_Panel : MonoBehaviour
 
     public IEnumerator SetUpQuestionCardPanel() 
     {
+
         for (int i = 0; i < question_CardList.Count; i++)
         {
             question_CardList[i].SetScore(RandomCardScore());

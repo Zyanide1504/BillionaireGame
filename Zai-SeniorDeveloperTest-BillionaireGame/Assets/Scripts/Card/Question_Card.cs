@@ -26,7 +26,7 @@ public class Question_Card : Card
 
     public void CardClick() 
     {
-        StartCoroutine(FlipCard());
+        FlipCard();
         gameManager.OnCardSelect(score);
     }
 }

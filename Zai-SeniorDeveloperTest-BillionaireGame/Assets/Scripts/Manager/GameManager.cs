@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     public QuestionCard_Panel questionCard_Panel;
     public QuestionPanel question_Panel;
 
-
+    [Header("other Reference")]
+    public Question_Card currentCard;
 
 
     [Header("Game Setting")]
@@ -86,7 +87,10 @@ public class GameManager : MonoBehaviour
 
         yield return StartCoroutine(questionCard_Panel.HideAllCard());
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+
+        currentCard.SetScore(score);
+        StartCoroutine(currentCard.ShowAndFlip());
 
         yield return StartCoroutine(question_Panel.Setup_QuestionPanel());
         gameOverCountDown = StartCoroutine(timer_manager.GameOverCountDown());
@@ -114,6 +118,7 @@ public class GameManager : MonoBehaviour
             if (score_Manager.GetScore() < win_Score)
             {
                 yield return StartCoroutine(question_Panel.HideQuestionPanel());
+                StartCoroutine(currentCard.FlipAndHide());
                 StartCoroutine(questionCard_Panel.SetUpQuestionCardPanel());
             }
             else 

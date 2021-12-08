@@ -13,11 +13,11 @@ public class Card : MonoBehaviour
     public Button cardButton;
 
     public bool isReveal;
-
+    private bool isShow;
     public Animator animator;
 
 
-    public IEnumerator FlipCard()
+    public void FlipCard()
     {
         if (!isReveal)
         {
@@ -30,26 +30,46 @@ public class Card : MonoBehaviour
             animator.SetTrigger("FlipDown");
             isReveal = false;
         }
-        yield return null;
     }
 
 
-    public IEnumerator ShowCard() 
+    public void ShowCard() 
     {
-      
-        animator.SetTrigger("SlideIN");
-        yield return null;
+        if (!isShow) 
+        {
+            animator.SetTrigger("SlideIN");
+            isShow = true;
+        }
+
     }
 
-    public IEnumerator HideCard()
+    public void HideCard()
     {
-       
-        animator.SetTrigger("SlideOut");
-        yield return null;
+        if (isShow)
+        {
+            animator.SetTrigger("SlideOut");
+            isShow = false;
+        }
     }
 
     public void Set_interact(bool interact) 
     {
         cardButton.interactable = interact;
+    }
+
+
+    public IEnumerator ShowAndFlip()
+    {
+        ShowCard();
+        yield return new WaitForSeconds(1f);
+        FlipCard();
+    }
+
+    public IEnumerator FlipAndHide()
+    {
+        FlipCard();
+        yield return new WaitForSeconds(1f);
+        HideCard();
+
     }
 }
