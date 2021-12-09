@@ -41,9 +41,11 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+
         StartCoroutine(StartGame());
     }
 
+    // คำสั่งที่เรียกเพื่อเริ่มต้นเกม
     public IEnumerator StartGame() 
     {
         if (PlayerPrefs.HasKey("WinCount"))
@@ -68,60 +70,39 @@ public class GameManager : MonoBehaviour
         StartCoroutine(questionCard_Panel.SetUpQuestionCardPanel());
     }
 
+    // คำสั่งไว้ให้ QuestionCard เรียกกลับมาเมื่อผู้เล่นเลือกการ์ดแล้ว
     public void OnCardSelect(int score) 
     {
         StartCoroutine(IE_OnCardSelect(score));
     }
-
+    // ชุดคำสั่งที่รันเมื่อผู้เล่นเลือกการ์ดแล้ว มีการเรียกไปที่ ApiManager ให้ยิง API ไปเอาคำถามจาก Server เมื่อได้มาแล้วทำการ Animate เก็บไพ่ แล้วเริ่ม Setup หน้าคำถาม
     public IEnumerator IE_OnCardSelect(int score) 
     {
         questionCard_Panel.Setinteract_AllCard(false);
 
-        QuestionID_Info_List temp_QIDL = new QuestionID_Info_List();
-        temp_QIDL.question_list = new List<QuestionID_Info>();
+        yield return StartCoroutine(api_Manager.GetRandomQuestionByScore(score));
 
-        foreach (var x in api_Manager.QuestionID_List.question_list)
-        {
-            if (x.score == score) 
-            {
-                temp_QIDL.question_list.Add(x);
-            }
-        }
-
-        int random = Random.Range(0, temp_QIDL.question_list.Count);
-
-        yield return StartCoroutine(api_Manager.Get_Question_By_ID(temp_QIDL.question_list[random].question_ID));
-
-
-
-        StartCoroutine(questionCard_Panel.RevealAllCard());
-
-        yield return new WaitForSeconds(revealAllCard_delay);
-
-        yield return StartCoroutine(questionCard_Panel.FlipAllCard());
-
-        yield return new WaitForSeconds(1f);
-
-        yield return StartCoroutine(questionCard_Panel.HideAllCard());
-
-        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(questionCard_Panel.HideQuestionCardPanel());
 
         currentCard.SetScore(score);
         StartCoroutine(currentCard.ShowAndFlip());
 
-        StartCoroutine(audio_Manager.PlayRandom_IN_NPC_Category("SeeQuestion"));
+        question_Panel.gameObject.SetActive(true); 
         yield return StartCoroutine(question_Panel.Setup_QuestionPanel());
         gameOverCountDown = StartCoroutine(timer_manager.GameOverCountDown());
 
         yield return null;
     }
 
+    // คำสั่งไว้ให้ QuestionCard เรียกกลับมาเมื่อผู้เล่นเลือกคำตอบแล้ว
     public void OnSelectAnswer(string answer) 
     {
+        question_Panel.SetAll_AnswerButtonInteract(false);
         StopCoroutine(gameOverCountDown);
         StartCoroutine(IE_OnSelectAnswer(answer));
     }
 
+    // ชุดคำสั่งที่รันเมื่อผู้เล่นเลือกคำตอบทำการเชคคำตอบ ถ้าถูกให้เพิ่มคะแนนแล้วเชคว่าคะแนนถึงคะแนนที่จะชนะได้รึงยังหากยังให้ ซ่อนหน้าคำถามแล้ว SetUp หน้าเลือกการ์ด ต่อ แต่ถ้าชนะหรือคำตอบผิก ก็จะเป็นการจบเกม
     public IEnumerator IE_OnSelectAnswer(string answer)
     {
         helper_Manager.HideHelperBar();
@@ -130,12 +111,9 @@ public class GameManager : MonoBehaviour
         if (answer == api_Manager.current_Question.answer)
         {
             score_Manager.AddScore(api_Manager.current_Question.score);
-            
-
-
             yield return StartCoroutine(audio_Manager.PlayRandom_IN_NPC_Category("RightAns"));
 
-            if (score_Manager.GetScore() < current_win_Score)
+            if (!score_Manager.CheckScoreWinCondition())
             {
                 yield return StartCoroutine(question_Panel.HideQuestionPanel());
                 StartCoroutine(currentCard.FlipAndHide());
@@ -156,6 +134,7 @@ public class GameManager : MonoBehaviour
     }
 
 
+    //เรียกเมื่อตรงเงื่อนไขชนะ
     public void OnWin() 
     {
         PlayerPrefs.SetInt("WinCount",PlayerPrefs.GetInt("WinCount") +1);
@@ -163,11 +142,14 @@ public class GameManager : MonoBehaviour
     }
 
 
+    //เรียกเมื่อตรงเงื่อนไขแพ้
     public void OnGameOver()
     {
         StartCoroutine(IE_OnGameEnd("GameOver", "แพ้แล้ว"));
     }
 
+
+    //เรียกเมื่อตรงเงื่อนไขจบเกม
     public IEnumerator IE_OnGameEnd(string result,string noticString)
     {
         timer_manager.HideTimer();
@@ -181,7 +163,6 @@ public class GameManager : MonoBehaviour
         scene_TransitionImage.SetTrigger("Hide");
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(0);
-
         yield return null;
 
     }

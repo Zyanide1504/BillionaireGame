@@ -34,6 +34,7 @@ public class TimerInput_panel : MonoBehaviour
 
     void Awake()
     {
+        // สร้าง obj ตัวเลขเวลาขึ้นมาตามที่ตั้งเช่นชั่วโมงมี 24 ชั่วโมง max_number = 24 ก็จะสร้างตัวเลขเวลาตั้งแต่ 00 - 23
         for (int i = 0; i < max_number; i++) 
         {
             var temp_TimeNumber = Instantiate(TimeNumber_Prefab, panel.transform).GetComponent<Text>();
@@ -52,17 +53,22 @@ public class TimerInput_panel : MonoBehaviour
         distance = new float[objLength];
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (objDistance == 0) 
-        {
+        UpdateInputAnimation(); 
+    }
 
+
+    // ฟังชั่นอัพเดทตำแหน่งของตัวเลข
+    public void UpdateInputAnimation() 
+    {
+        if (objDistance == 0)
+        {
             objDistance = (int)Mathf.Abs(contentObj[1].GetComponent<RectTransform>().anchoredPosition.y
            - contentObj[0].GetComponent<RectTransform>().anchoredPosition.y);
         }
-       
-        for (int i = 0; i < contentObj.Count; i++) 
+
+        for (int i = 0; i < contentObj.Count; i++)
         {
 
             distance[i] = Mathf.Abs(center.transform.position.y - contentObj[i].transform.position.y);
@@ -70,13 +76,13 @@ public class TimerInput_panel : MonoBehaviour
 
         float minDistance = Mathf.Min(distance);
 
-
+        //เชคว่ามีการลากหรือไม่ถ้าไม่ให้ทำการไหลตัววเลขที่อยู่ไกล้ที่สุดมาเป็นตัวที่เลือก
         if (!dragging)
         {
 
             LerpToObj(minObjnum * objDistance);
         }
-        else 
+        else
         {
 
             for (int j = 0; j < contentObj.Count; j++)
@@ -88,12 +94,12 @@ public class TimerInput_panel : MonoBehaviour
             }
         }
 
-
-        for (int i = 0; i < contentObj.Count; i++) 
+        // ทำ Animate ให้ Alpha และ ขนาด น้อยลงเมื่อไม่ถูกเลือก
+        for (int i = 0; i < contentObj.Count; i++)
         {
             var tempobj_text = contentObj[i].GetComponent<Text>();
             float destination_TextScale = 0;
-            float destination_alpha = 0; 
+            float destination_alpha = 0;
 
             if (minObjnum == i)
             {
@@ -108,13 +114,16 @@ public class TimerInput_panel : MonoBehaviour
 
             int currentFrontSize = (int)Mathf.Lerp(tempobj_text.fontSize, destination_TextScale, Time.deltaTime / alpha_fadeSpeed);
             tempobj_text.fontSize = currentFrontSize;
-            
+
             var lerp_Alph = Mathf.Lerp(tempobj_text.color.a, destination_alpha, Time.deltaTime / alpha_fadeSpeed);
             tempobj_text.color = new Color(tempobj_text.color.r, tempobj_text.color.g, tempobj_text.color.b, lerp_Alph);
         }
-       
     }
 
+
+
+
+    //ฟังชันไว้ Lerp เลขให้ไปอยู่ในตำแหนน่งที่ต้องการ
     void LerpToObj(int position)
     {
         float newY = Mathf.Lerp(panel.anchoredPosition.y, position, Time.deltaTime / lerpSnapSpeed);
@@ -124,6 +133,7 @@ public class TimerInput_panel : MonoBehaviour
 
     }
 
+    //ทำงานตอนลาก Set dragging ให้เป็น false เพื่อให้ทำการ Update ตำแหน่งเลข
     public void StartDrag() 
     {
 
@@ -131,25 +141,26 @@ public class TimerInput_panel : MonoBehaviour
 
     }
 
+    //ทำงานตอนหยุดลาก Set dragging เป็น true เพื่อให้ หยุดอัพเดทตำแหน่ง
     public void StopDrag() 
     {
         dragging = false;
         UpdateCurrentInput();
     }
 
+    // function อัพเดทว่าตอนนี้ Input เป็นเลขอะไร
     public void UpdateCurrentInput() 
     {
         current_input = contentObj[minObjnum].GetComponent<Text>().text;
     }
 
+
+
+    //Set ค่า Input ของ TimerInput ให้เป็น เลขที่ต้องการ
     public void SetCurrentInput(int index) 
     {
         minObjnum = index;
         UpdateCurrentInput();
     }
 
-    public void ToggleEditMode() 
-    {
-    
-    }
 }

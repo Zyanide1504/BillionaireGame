@@ -17,9 +17,9 @@ public class GamePlay_TimerManager : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.Instance;
-        
     }
 
+    // ฟังชั่นแสดงตัวนับเวลาถอยหลัง
     public void ShowTimer() 
     {
         if (!isShow)
@@ -29,6 +29,7 @@ public class GamePlay_TimerManager : MonoBehaviour
         }
     }
 
+    // ฟังชั่นซ่อนตัวนับเวลาถอยหลัง
     public void HideTimer()
     {
         if (isShow)
@@ -38,6 +39,8 @@ public class GamePlay_TimerManager : MonoBehaviour
         }
     }
 
+
+    // ฟังชั่นนับเวลาถอยหลังก่อน GameOver
     public IEnumerator GameOverCountDown() 
     {
         yield return new WaitForSeconds(gameManager.delay_countDown);
@@ -54,7 +57,7 @@ public class GamePlay_TimerManager : MonoBehaviour
             timer_Text.text = showtime.ToString();
         }
 
-        gameManager.question_Panel.Set_AnswerButtonInteract(false);
+        gameManager.question_Panel.SetAll_AnswerButtonInteract(false);
         yield return gameManager.audio_Manager.PlayRandom_IN_NPC_Category("TimeOut");
         gameManager.OnGameOver();
     }

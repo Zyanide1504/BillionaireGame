@@ -12,6 +12,7 @@ public class QuestionCard_Panel : MonoBehaviour
         gameManager = GameManager.Instance;
     }
 
+    // ฟังชันแสดงการ์ดทั้งหมด
     public IEnumerator ShowAllCard() 
     {
         foreach(var x in question_CardList) 
@@ -23,6 +24,7 @@ public class QuestionCard_Panel : MonoBehaviour
         yield return null;
     }
 
+    // ฟังชัน Set interact ของ Button component ในการ์ดทุกใบ
     public void Setinteract_AllCard(bool interact)
     {
         foreach (var x in question_CardList)
@@ -32,6 +34,8 @@ public class QuestionCard_Panel : MonoBehaviour
 
     }
 
+
+    // ฟังชันซ่อนการ์ดทั้งหมด
     public IEnumerator HideAllCard()
     {
         foreach (var x in question_CardList)
@@ -42,6 +46,8 @@ public class QuestionCard_Panel : MonoBehaviour
         yield return null;
     }
 
+
+    // ฟังชันหงายไพ่ทุกใบ
     public IEnumerator RevealAllCard() 
     {
 
@@ -56,6 +62,8 @@ public class QuestionCard_Panel : MonoBehaviour
     
     }
 
+
+    // ฟังชันกลับไพ่ทุกใบ
     public IEnumerator FlipAllCard()
     {
 
@@ -68,6 +76,7 @@ public class QuestionCard_Panel : MonoBehaviour
         yield return null;
     }
 
+    // ฟังชัน Setup panel ของการ์ด
     public IEnumerator SetUpQuestionCardPanel() 
     {
         StartCoroutine(gameManager.audio_Manager.PlayRandom_IN_NPC_Category("SelectQuestionCard"));
@@ -82,6 +91,25 @@ public class QuestionCard_Panel : MonoBehaviour
         StartCoroutine(ShowAllCard());
         yield return new WaitForSeconds(3f);
         Setinteract_AllCard(true);
+
+        yield return null;
+    }
+
+    // ฟังชัน ซ่อน panel ของการ์ด
+    public IEnumerator HideQuestionCardPanel()
+    {
+
+        StartCoroutine(RevealAllCard());
+
+        yield return new WaitForSeconds(gameManager.revealAllCard_delay);
+
+        yield return StartCoroutine(FlipAllCard());
+
+        yield return new WaitForSeconds(1f);
+
+        yield return StartCoroutine(HideAllCard());
+
+        yield return new WaitForSeconds(1f);
 
         yield return null;
     }

@@ -16,66 +16,65 @@ public class AudioManager : MonoBehaviour
     public List<Audio_Clip> SoundEffect_Clip_List;
     public List<Audio_ClipCategory> NPC_audioClip;
 
-    private bool playBG_music;
     private Audio_Clip previous_music;
-
+    private Coroutine BG_music;
 
     public void Start()
     {
         soudEffect_AudioSource = new List<AudioSource>();
         PlayBG_Music();
-       
     }
 
 
-    public void Update()
-     {
-        if (playBG_music) 
+    // เล่นเพลงใน playlist แบบ Random
+    private IEnumerator PlayRandomBG_Music()
+    {
+        while (true)
         {
             if (!music_AudioSource.isPlaying)
             {
-                RandomBG_Music();
+                var audioClip = music_Clip_List[Random.Range(0, music_Clip_List.Count)];
+                if (previous_music.clipName != audioClip.clipName)
+                {
+                    previous_music = audioClip;
+                    _Play(music_AudioSource, audioClip.clip);
+                }
             }
+
+            yield return null;
         }
-     }
-
-    private void RandomBG_Music() 
-    {
-        
-        var audioClip = music_Clip_List[Random.Range(0, music_Clip_List.Count)];
-        if (previous_music.clipName != audioClip.clipName) 
-        {
-            previous_music = audioClip;
-            _Play(music_AudioSource, audioClip.clip);
-        }
-
-
     }
 
-    public void PlayBG_Music() 
+
+    // เล่นเพลงพื้นหลัง
+    public void PlayBG_Music()
     {
-        playBG_music = true;
+        BG_music = StartCoroutine(PlayRandomBG_Music());
     }
 
-    public void StopBG_Music() 
+    // เล่นหยุดเล่นเพลง
+    public void StopBG_Music()
     {
+        StopCoroutine(BG_music);
         music_AudioSource.Stop();
-        playBG_music = false;
     }
 
 
-    public void _Play(AudioSource source , AudioClip clip) 
+    // ฟังชั้นสำหรับเล่น clip ใน AudioSouce ที่ต้องการ
+    public void _Play(AudioSource source, AudioClip clip)
     {
         source.clip = clip;
         source.Play();
     }
+
+    // ฟังชั้นสำหรับเล่น SoundEffect เขียนไว้เผื่อมีกรณีที่เสียงEffect ต้องเล่นซ้อนกันหลายๆอัน เลยใช้ logic คล้ายๆ object pool หาก Souce ในลิสทั้งหมดเล่นอยู่หรือยังไม่มีก็จะสร้าง AudioSource เพิ่มแต่ถ้ามี AudioSouce ที่ไม่ได้เล่นเสียงอะไรก็จะถูกเอามาใช้เล่น
     public void PlaySoundEffect(string clipName, float volume)
     {
         var clip = SoundEffect_Clip_List.Where(x => x.clipName == clipName).SingleOrDefault().clip;
 
-        foreach (var x in soudEffect_AudioSource) 
+        foreach (var x in soudEffect_AudioSource)
         {
-            if (!x.isPlaying) 
+            if (!x.isPlaying)
             {
                 x.clip = clip;
                 x.volume = volume;
@@ -93,7 +92,9 @@ public class AudioManager : MonoBehaviour
         soudEffect_AudioSource.Add(temp_AudioSource);
     }
 
-    public IEnumerator PlayRandom_IN_NPC_Category(string categoryName) 
+
+    // ฟั่งชั่นสุ่มเสียง NPC ตาม Category ที่แยกไว้เช่น Welcome ก็จะเป็นเสียงพูดตอนเปิดเกม
+    public IEnumerator PlayRandom_IN_NPC_Category(string categoryName)
     {
         RandomPlay_by_Category(NPC_audioClip, npcSpeak_AudioSource, categoryName);
 
@@ -103,8 +104,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-
-    public void RandomPlay_by_Category(List<Audio_ClipCategory> audio_list,AudioSource audioSource , string categoryName) 
+    // Random เสียงที่อยู่ใน Category ที่ต้องการ
+    public void RandomPlay_by_Category(List<Audio_ClipCategory> audio_list, AudioSource audioSource, string categoryName)
     {
         var clip_in_category = audio_list.Where(x => x.Category_Name == categoryName).SingleOrDefault().clip_list;
         var select_Clip = clip_in_category[Random.Range(0, clip_in_category.Count)];
@@ -114,11 +115,11 @@ public class AudioManager : MonoBehaviour
 
 
     [System.Serializable]
-    public struct Audio_Clip 
+    public struct Audio_Clip
     {
         public string clipName;
         public AudioClip clip;
-    
+
     }
 
     [System.Serializable]

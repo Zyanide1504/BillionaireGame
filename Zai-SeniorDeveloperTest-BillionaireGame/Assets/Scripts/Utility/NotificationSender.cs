@@ -8,7 +8,10 @@ public class NotificationSender
 {
     private Int32 notic_identifier;
     private AndroidNotificationChannel defaultNotificationChanel;
-    // Start is called before the first frame update
+
+
+
+    // ฟังชั้นไว้ สร้าง NotificationChannel
     public void SetupNotificationChanel()
     {
 #if UNITY_ANDROID
@@ -24,6 +27,9 @@ public class NotificationSender
 #endif
     }
 
+
+
+    // ฟังชั้นไว้ ยิง NotificationChannel
     public void SetSentNotification(string Title, string Text ,DateTime fireTime)
     {
 

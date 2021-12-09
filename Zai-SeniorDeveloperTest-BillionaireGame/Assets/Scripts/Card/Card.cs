@@ -23,7 +23,7 @@ public class Card : MonoBehaviour
         gameManager = GameManager.Instance;
     }
 
-
+    //Function สำหรับกลับไพ่
     public void FlipCard()
     {
         if (!isReveal)
@@ -40,7 +40,7 @@ public class Card : MonoBehaviour
         }
     }
 
-
+    //Function สำหรับแสดงไพ่
     public void ShowCard() 
     {
         if (!isShow) 
@@ -51,7 +51,7 @@ public class Card : MonoBehaviour
         }
 
     }
-
+    //Function สำหรับซ่อนไพ่
     public void HideCard()
     {
         if (isShow)
@@ -62,12 +62,14 @@ public class Card : MonoBehaviour
         }
     }
 
+    //Function สำหรับตั้งค่า interact ของปุ่ม
     public void Set_interact(bool interact) 
     {
         cardButton.interactable = interact;
     }
 
 
+    //Function สำหรับ แสดงไพ่แล้วหงายไพ่
     public IEnumerator ShowAndFlip()
     {
         ShowCard();
@@ -75,6 +77,7 @@ public class Card : MonoBehaviour
         FlipCard();
     }
 
+    //Function สำหรับ คว่ำไพ่แล้วซ่อนไพ่
     public IEnumerator FlipAndHide()
     {
         FlipCard();

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Utility
 {
 
+    // ไว้ใช้สำหรับการ Random โดยตั้ง Chance Weight ของผลลัพได้
     public string RandomWithChance(List<Random_Chance> randomlist)
     {
         float chanceSum = 0;

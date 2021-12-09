@@ -854,7 +854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6280e9cd37e673644a5f8e5cdf255fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  answer: 
+  answer: C
   button: {fileID: 311812380}
   anim: {fileID: 1509677607}
   isShow: 0
@@ -935,9 +935,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1526101621}
-        m_MethodName: SentAnswer
-        m_Mode: 5
+      - m_Target: {fileID: 311812377}
+        m_MethodName: SendAnswer
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -982,9 +982,9 @@ RectTransform:
   m_Father: {fileID: 1653933730}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 677.95, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 677.95, y: 0}
   m_SizeDelta: {x: 244.1, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &330840836
@@ -2058,12 +2058,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1185584868}
         m_MethodName: ExtendTime
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 2
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -3385,7 +3385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6280e9cd37e673644a5f8e5cdf255fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  answer: 
+  answer: B
   button: {fileID: 966681360}
   anim: {fileID: 49725581}
   isShow: 0
@@ -3466,9 +3466,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1526101621}
-        m_MethodName: SentAnswer
-        m_Mode: 5
+      - m_Target: {fileID: 966681357}
+        m_MethodName: SendAnswer
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4226,9 +4226,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1526101621}
-        m_MethodName: SentAnswer
-        m_Mode: 5
+      - m_Target: {fileID: 1183952565}
+        m_MethodName: SendAnswer
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4280,7 +4280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6280e9cd37e673644a5f8e5cdf255fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  answer: 
+  answer: D
   button: {fileID: 1183952563}
   anim: {fileID: 2023019080}
   isShow: 0
@@ -4487,7 +4487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6280e9cd37e673644a5f8e5cdf255fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  answer: 
+  answer: A
   button: {fileID: 1196339660}
   anim: {fileID: 1808422581}
   isShow: 0
@@ -4531,9 +4531,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1526101621}
-        m_MethodName: SentAnswer
-        m_Mode: 5
+      - m_Target: {fileID: 1196339659}
+        m_MethodName: SendAnswer
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4777,7 +4777,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d080b03c0bd80aa4a983d3c38f058005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1410922614}
   notic_Text: {fileID: 1126018116}
 --- !u!1 &1433267833
 GameObject:

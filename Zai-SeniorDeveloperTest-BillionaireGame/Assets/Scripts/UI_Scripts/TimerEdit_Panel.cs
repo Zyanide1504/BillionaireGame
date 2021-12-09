@@ -26,9 +26,10 @@ public class TimerEdit_Panel : MonoBehaviour
         minute_InputField.text = timeMN.minuteInput.current_input;
     }
 
+
+    // ฟังชั่นยืนยันแก้ไขเวลาของ Time edit panel
     public void confirmEdit() 
     {
-
         try
         {
             timeMN.SetTimer(DateTime.Parse(hour_InputField.text + ":" + minute_InputField.text));

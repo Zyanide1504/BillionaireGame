@@ -18,7 +18,7 @@ public class Helper_Manager : MonoBehaviour
 
     }
 
-
+    // ฟังชั่น Toggle การแสดงตัววช่วย
     public void ToggleShow() 
     {
 
@@ -33,6 +33,7 @@ public class Helper_Manager : MonoBehaviour
         }
     }
 
+    // ฟังชั่น แสดงตัววช่วย
     public void ShowHelperBar() 
     {
        
@@ -43,6 +44,7 @@ public class Helper_Manager : MonoBehaviour
         }
     }
 
+    // ฟังชั่น ซ่อนตัวช่วย
     public void HideHelperBar()
     {
         if (isShow)
@@ -52,12 +54,14 @@ public class Helper_Manager : MonoBehaviour
         }
     }
 
-
-    public void ExtendTime() 
+    // ฟังชั่นขยายเวลา เวลาใช้สามารถเอา obj ที่มี Scrip นี้ไป reference แล้วเรียกได้เลิย หรือจะเรียกผ่าน instance ขอ GameManager ก็ได้เช่นกัน เช่น gameManager.helper_Manager.ExtendTime(3); เวลาก็จะเพิ่มเป็น 3 เท่า
+    public void ExtendTime(float multiple) 
     {
-        gameManager.timer_manager.timer = gameManager.timer_manager.timer * 2;
+
+        gameManager.timer_manager.timer = gameManager.timer_manager.timer * multiple;
     }
 
+    // ตัดคำตอบออกไปสองข้อ วีธีใช้เหมือน ExtendTime()
     public void Remove_2Choice() 
     {
         
@@ -65,7 +69,7 @@ public class Helper_Manager : MonoBehaviour
 
         while (select_remove.Count != 2) 
         {
-            int randomIndex = Random.RandomRange(0, choice.Length-1);
+            int randomIndex = Random.RandomRange(0, gameManager.question_Panel.ans_Buttonlist.Count);
             var temp_GameObj = gameManager.question_Panel.ans_Buttonlist[randomIndex];
 
             if (temp_GameObj.GetComponent<AnswerButton>().answer != gameManager.api_Manager.current_Question.answer) 
@@ -84,6 +88,8 @@ public class Helper_Manager : MonoBehaviour
         }
     }
 
+
+    // ถาม NPC  วีธีใช้เหมือน ExtendTime() และ Remove_2Choice()
     public void AskNPC() 
     {
         var utility = new Utility();
@@ -110,14 +116,15 @@ public class Helper_Manager : MonoBehaviour
 
                 StartCoroutine(gameManager.audio_Manager.PlayRandom_IN_NPC_Category("GiveRightAns"));
                 var temp_ans = gameManager.api_Manager.current_Question.answer;
-                gameManager.question_Panel.hintButton(System.Array.IndexOf(choice, temp_ans));
+                gameManager.question_Panel.hintButton(temp_ans);
+                
 
                 break;
 
         }
     }
 
-
+    //บอกคำตอบที่ผิด
     public void HintWorngAnswer() 
     {
         string temp_wrongAns = "";
@@ -133,7 +140,7 @@ public class Helper_Manager : MonoBehaviour
 
         }
         temp_wrongAns = select_wrongAns[Random.RandomRange(0, select_wrongAns.Count)].GetComponent<AnswerButton>().answer;
-        gameManager.question_Panel.hintButton(System.Array.IndexOf(choice, temp_wrongAns));
+        gameManager.question_Panel.hintButton(temp_wrongAns);
     }
 
 }

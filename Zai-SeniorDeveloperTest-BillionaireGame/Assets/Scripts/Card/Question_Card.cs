@@ -14,16 +14,18 @@ public class Question_Card : Card
   
     public void Start()
     {
+        // ใช้คำสั่ง GameManagerInstance จาก Card
         GameManagerInstance();
     }
 
-
+    //function ไว้ตั่งงค่าคะแนนของตัวการ์ด
     public void SetScore(int _score) 
     {
         score_Text.text = _score.ToString();
         score = _score;
     }
 
+    // ฟังชั่นเชื่อมกับปุ่มเมื่อกดจะหงายตัวเองแล้วทำการเรียกต่อไปที่ GameManager เพื่อบอกว่าผู้เล่นเลือกการ์ดแล้ว
     public void CardClick() 
     {
         FlipCard();

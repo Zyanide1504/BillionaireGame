@@ -16,6 +16,7 @@ public class QuestionPanel : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    // ฟังชันแสดง panel คำถาม
     public IEnumerator ShowQuestionPanel() 
     {
         question_anim.SetTrigger("ShowQuestion");
@@ -31,6 +32,7 @@ public class QuestionPanel : MonoBehaviour
         yield return null;
     }
 
+    // ฟังชัน ซ่อน panel คำถาม
     public IEnumerator HideQuestionPanel()
     {
 
@@ -48,17 +50,15 @@ public class QuestionPanel : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+
+    //ตั่งค่าเริ่มต้นให้ปุ่มคำคอบ
     public void Ini_Button() 
     {
-        ans_Buttonlist[0].GetComponent<AnswerButton>().answer = "A";
-        ans_Buttonlist[1].GetComponent<AnswerButton>().answer = "B";
-        ans_Buttonlist[2].GetComponent<AnswerButton>().answer = "C";
-        ans_Buttonlist[3].GetComponent<AnswerButton>().answer = "D";
-
         ResetAllButtonColor();
         SetActiveAllButton();
     }
 
+    //เปลี่ยนสีปุ่มคอบให้กลับมาเป็นค่าเริ่มต้น
     public void ResetAllButtonColor()
     {
         foreach (var x in ans_Buttonlist)
@@ -67,6 +67,7 @@ public class QuestionPanel : MonoBehaviour
         }
     }
 
+    //สั่ง SetActive ปุ่มคำตอบทั้งหมด
     public void SetActiveAllButton()
     {
         foreach (var x in ans_Buttonlist)
@@ -75,13 +76,23 @@ public class QuestionPanel : MonoBehaviour
         }
     }
 
-    public void hintButton(int buttonIndex) 
+    //ฟังชั่นบอกใบ้ที่จะเปลี่ยนสีปุ่มที่เลือกให้เป็นสีเขียว
+    public void hintButton(string ans) 
     {
-        ans_Buttonlist[buttonIndex].GetComponent<Image>().color = new Color32(161,245,161,255);
+        foreach (var x in ans_Buttonlist)
+        {
+
+            if (x.answer == ans) 
+            {
+              x.GetComponent<Image>().color = new Color32(161, 245, 161, 255);
+                return;
+            }
+        }
+       
     }
 
-
-    public void Set_AnswerButtonInteract(bool interact) 
+    //ฟังชั่นตั้ง InterAct ให้ปุ่มทั้งหมด
+    public void SetAll_AnswerButtonInteract(bool interact) 
     {
         foreach (var x in ans_Buttonlist)
         {
@@ -90,9 +101,10 @@ public class QuestionPanel : MonoBehaviour
     }
 
 
+    // Setup หน้าคำถาม
     public IEnumerator Setup_QuestionPanel()
     {
-        
+        StartCoroutine(gameManager.audio_Manager.PlayRandom_IN_NPC_Category("SeeQuestion"));
         Ini_Button();
         question_Text.text = gameManager.api_Manager.current_Question.question;
         question_Text.GetComponent<Text_ForThaiFont>().AdjustText();
@@ -107,13 +119,10 @@ public class QuestionPanel : MonoBehaviour
 
         gameObject.SetActive(true);
         yield return StartCoroutine(ShowQuestionPanel());
-        Set_AnswerButtonInteract(true);
+        SetAll_AnswerButtonInteract(true);
         yield return null;
     }
 
-    public void SentAnswer(string answer) 
-    {
-        Set_AnswerButtonInteract(false);
-        gameManager.OnSelectAnswer(answer);
-    }
+    //ส่งคำตอบไปให้ GameManager เชค
+
 }
