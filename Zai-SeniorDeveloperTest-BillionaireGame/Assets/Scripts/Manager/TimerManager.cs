@@ -101,32 +101,35 @@ public class TimerManager : MonoBehaviour
         CurrentTimer = DateTime.Parse(combind_TimeInput);
         SaveTimer_Text.text = CurrentTimer.TimeOfDay.ToString();
         finish_CountDown = false;
+
+        var timeDifference = CurrentTimer - DateTime.Now.TimeOfDay;
+
 #if UNITY_ANDROID
-
-
-        AndroidNotification notification = new AndroidNotification()
+        if (DateTime.Now < CurrentTimer)
         {
-            Title = "Test Notification!!!",
-            Text = "This is a test notification!!!",
-            SmallIcon = "icon_0",
-            LargeIcon = "icon_1",
-            FireTime = CurrentTimer,
-        };
+            AndroidNotification notification = new AndroidNotification()
+            {
+                Title = "Test Notification!!!",
+                Text = "This is a test notification!!!",
+                SmallIcon = "icon_0",
+                LargeIcon = "icon_1",
+                FireTime = CurrentTimer,
+            };
 
-
-        if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Scheduled)
-        {
-            AndroidNotificationCenter.CancelNotification(notic_identifier);
-            notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
-        }
-        else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Delivered)
-        {
-            AndroidNotificationCenter.CancelNotification(notic_identifier);
-            notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
-        }
-        else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Unknown)
-        {
-            notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
+            if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Scheduled)
+            {
+                AndroidNotificationCenter.CancelNotification(notic_identifier);
+                notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
+            }
+            else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Delivered)
+            {
+                AndroidNotificationCenter.CancelNotification(notic_identifier);
+                notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
+            }
+            else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Unknown)
+            {
+                notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
+            }
         }
 #endif
 
