@@ -28,7 +28,7 @@ public class TimerEdit_Panel : MonoBehaviour
 
 
     // ฟังชั่นยืนยันแก้ไขเวลาของ Time edit panel
-    public void confirmEdit() 
+    public void ConfirmEdit() 
     {
         try
         {
