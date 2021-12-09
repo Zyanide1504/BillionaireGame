@@ -39,17 +39,20 @@ public class TimerManager : MonoBehaviour
         {
             CurrentTimer = DateTime.Parse(PlayerPrefs.GetString("Timer"));
             Debug.Log(CurrentTimer);
-            SetTimer(CurrentTimer);
+            SetinputTimer(CurrentTimer);
            
         }
         else 
         {
             CurrentTimer = DateTime.Parse("00:00");
-            SetTimer(CurrentTimer);
+            SetinputTimer(CurrentTimer);
 
         }
         SaveTimer_Text.text = CurrentTimer.TimeOfDay.ToString();
     }
+
+
+
 
     public void Update()
     {
@@ -77,14 +80,10 @@ public class TimerManager : MonoBehaviour
             }
 
         }
-        UpdateStartButtonStatus();
-    }
 
-    // ฟังชั่นไว้อัพเดทสภานะของปุ่มว่าสามารถเริ่มเกมได้หรือยัง
-    public void UpdateStartButtonStatus() 
-    {  
         Start_Button.interactable = finish_CountDown;
     }
+
 
     public void SaveTimer() 
     {
@@ -114,7 +113,7 @@ public class TimerManager : MonoBehaviour
     }
 
     // ฟังชั่นเพื่อใช้ Set ตัว inputTimer ให้แสดงผลตาม
-    public void SetTimer(DateTime time) 
+    public void SetinputTimer(DateTime time) 
     {
         var temp_CurrentTimer = time;
         hourInput.SetCurrentInput(temp_CurrentTimer.Hour);

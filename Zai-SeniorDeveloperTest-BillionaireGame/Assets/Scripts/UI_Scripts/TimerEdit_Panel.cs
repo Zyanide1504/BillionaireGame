@@ -32,7 +32,7 @@ public class TimerEdit_Panel : MonoBehaviour
     {
         try
         {
-            timeMN.SetTimer(DateTime.Parse(hour_InputField.text + ":" + minute_InputField.text));
+            timeMN.SetinputTimer(DateTime.Parse(hour_InputField.text + ":" + minute_InputField.text));
             this.gameObject.SetActive(false);
         }
         catch
