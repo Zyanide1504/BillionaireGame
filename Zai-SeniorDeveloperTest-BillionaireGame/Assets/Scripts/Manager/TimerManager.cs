@@ -108,8 +108,8 @@ public class TimerManager : MonoBehaviour
         {
             Title = "Test Notification!!!",
             Text = "This is a test notification!!!",
-            SmallIcon = "default",
-            LargeIcon = "default",
+            SmallIcon = "icon_0",
+            LargeIcon = "icon_1",
             FireTime = CurrentTimer,
         };
 
