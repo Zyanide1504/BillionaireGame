@@ -37,7 +37,7 @@ public class Score_Manager : MonoBehaviour
     public bool CheckScoreWinCondition()
     {
 
-        return (CurrentScore>WinScore);
+        return (CurrentScore>=WinScore);
     }
 
 }
