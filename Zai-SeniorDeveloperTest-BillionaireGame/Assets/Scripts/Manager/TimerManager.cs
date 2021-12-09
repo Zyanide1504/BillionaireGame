@@ -19,15 +19,22 @@ public class TimerManager : MonoBehaviour
     public TimerEdit_Panel timerEdit_Panel;
     public Animator scene_TransitonAnim;
     private DateTime CurrentTimer;
-    private AndroidNotificationChannel defaultNotificationChanel;
-    private Int32 notic_identifier;
 
+    private NotificationSender notic_Sender;
+    public static TimerManager Instance { get; private set; }
     bool finish_CountDown;
 
+    public void Awake()
+    {
+        Instance = this;
+    }
     public void Start()
     {
-        
-        
+
+        notic_Sender = new NotificationSender();
+        notic_Sender.SetupNotificationChanel();
+      
+        // เชคว่ามีการ Save เวลามาก่อนหรือไม่ หากไม่ให้ set เป็น 00:00 หากมีให้แสดงผลเวลาเริ่มต้นตามนั้น
         if (PlayerPrefs.HasKey("Timer"))
         {
             CurrentTimer = DateTime.Parse(PlayerPrefs.GetString("Timer"));
@@ -39,33 +46,18 @@ public class TimerManager : MonoBehaviour
         {
             CurrentTimer = DateTime.Parse("00:00");
             SetTimer(CurrentTimer);
-            Debug.Log("null"); 
 
         }
-
-        
         SaveTimer_Text.text = CurrentTimer.TimeOfDay.ToString();
-
-#if UNITY_ANDROID
-        defaultNotificationChanel = new AndroidNotificationChannel()
-        {
-            Id = "default_channel",
-            Name = "Default Channel",
-            Description = "For Generic notification",
-            Importance = Importance.Default,
-        };
-
-        AndroidNotificationCenter.RegisterNotificationChannel(defaultNotificationChanel);
-#endif
-
     }
 
     public void Update()
     {
         CountDownTimmerUpdate();
-        UpdateStartButtonStatus();
     }
 
+
+    // Function ใช้ Update ตัวนับถอยหลัง
     public void CountDownTimmerUpdate() 
     {
         if (!finish_CountDown)
@@ -85,9 +77,10 @@ public class TimerManager : MonoBehaviour
             }
 
         }
+        UpdateStartButtonStatus();
     }
 
-
+    // ฟังชั่นไว้อัพเดทสภานะของปุ่มว่าสามารถเริ่มเกมได้หรือยัง
     public void UpdateStartButtonStatus() 
     {  
         Start_Button.interactable = finish_CountDown;
@@ -95,6 +88,7 @@ public class TimerManager : MonoBehaviour
 
     public void SaveTimer() 
     {
+        // บันทึกเวลา
         var combind_TimeInput = hourInput.current_input + ":" + minuteInput.current_input;
         Debug.Log(combind_TimeInput);
         PlayerPrefs.SetString("Timer", combind_TimeInput);
@@ -104,71 +98,30 @@ public class TimerManager : MonoBehaviour
 
         var timeDifference = CurrentTimer - DateTime.Now.TimeOfDay;
 
+
+        // ยิง Notification หากเวลาที่ตั้งมากกว่าเวลาปัจจุบัญ
 #if UNITY_ANDROID
         if (DateTime.Now < CurrentTimer)
         {
-            AndroidNotification notification = new AndroidNotification()
-            {
-                Title = "Test Notification!!!",
-                Text = "This is a test notification!!!",
-                SmallIcon = "icon_0",
-                LargeIcon = "icon_1",
-                FireTime = CurrentTimer,
-            };
-
-            if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Scheduled)
-            {
-                AndroidNotificationCenter.CancelNotification(notic_identifier);
-                notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
-            }
-            else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Delivered)
-            {
-                AndroidNotificationCenter.CancelNotification(notic_identifier);
-                notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
-            }
-            else if (AndroidNotificationCenter.CheckScheduledNotificationStatus(notic_identifier) == NotificationStatus.Unknown)
-            {
-                notic_identifier = AndroidNotificationCenter.SendNotification(notification, "default_channel");
-            }
+            notic_Sender.SetSentNotification(
+                "เวลาที่คุณตั้งไว้ " + CurrentTimer, 
+                "ถึงเวลาตามที่ตั้งไว้แล้วมาสนุกกับเกม " + Application.productName + "กัน!!!!",
+                CurrentTimer
+                );
         }
 #endif
 
     }
 
-
+    // ฟังชั่นเพื่อใช้ Set ตัว inputTimer ให้แสดงผลตาม
     public void SetTimer(DateTime time) 
     {
         var temp_CurrentTimer = time;
-        
         hourInput.SetCurrentInput(temp_CurrentTimer.Hour);
         minuteInput.SetCurrentInput(temp_CurrentTimer.Minute);
     }
 
-
-    public void TurnOnTimerEditPanel() 
-    {
-        timerEdit_Panel.gameObject.SetActive(true);
-        timerEdit_Panel.hour_InputField.text = hourInput.current_input;
-        timerEdit_Panel.minute_InputField.text = minuteInput.current_input;
-    }
-
-    public void ConfirmTimerEdit() 
-    {
-        try 
-        {
-            SetTimer(DateTime.Parse(timerEdit_Panel.hour_InputField.text + ":" + timerEdit_Panel.minute_InputField.text));
-            timerEdit_Panel.gameObject.SetActive(false);
-        } 
-        catch 
-        {
-
-            Debug.Log("Wrong Time format");
-        
-        }
-    
-    }
-
-
+    // ฟังชั่นเพื่อใช้ เริ่มเกม
     public void StartGame() 
     {
         StartCoroutine(IE_StartGame());

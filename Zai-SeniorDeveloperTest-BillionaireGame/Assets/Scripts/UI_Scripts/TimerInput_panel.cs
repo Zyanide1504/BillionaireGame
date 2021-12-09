@@ -139,7 +139,6 @@ public class TimerInput_panel : MonoBehaviour
 
     public void UpdateCurrentInput() 
     {
-        Debug.Log(contentObj[minObjnum].GetComponent<Text>().text);
         current_input = contentObj[minObjnum].GetComponent<Text>().text;
     }
 
