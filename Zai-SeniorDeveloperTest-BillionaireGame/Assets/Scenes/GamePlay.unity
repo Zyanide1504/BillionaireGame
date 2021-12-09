@@ -982,9 +982,9 @@ RectTransform:
   m_Father: {fileID: 1653933730}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 677.95, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 677.95, y: 0}
   m_SizeDelta: {x: 244.1, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &330840836
@@ -4366,19 +4366,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1185584872}
-  helper_ansChance:
-  - Chance: 40
-    minChance: 0
-    maxChance: 0
-    answer: IDK
-  - Chance: 20
-    minChance: 0
-    maxChance: 0
-    answer: WrongANS
-  - Chance: 40
-    minChance: 0
-    maxChance: 0
-    answer: ANS
 --- !u!114 &1185584869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7098,19 +7085,32 @@ MonoBehaviour:
   currentCard: {fileID: 780248123}
   noticScript: {fileID: 1410922616}
   scene_TransitionImage: {fileID: 742752204}
-  card_scorelist:
-  - Chance: 100
+  scoreCard_Chance:
+  - outPut: 5
+    chance_weight: 80
     minChance: 0
     maxChance: 0
-    score: 5
-  - Chance: 30
+  - outPut: 10
+    chance_weight: 50
     minChance: 0
     maxChance: 0
-    score: 10
-  - Chance: 20
+  - outPut: 15
+    chance_weight: 20
     minChance: 0
     maxChance: 0
-    score: 15
+  helper_ansChance:
+  - outPut: IDK
+    chance_weight: 40
+    minChance: 0
+    maxChance: 0
+  - outPut: WrongANS
+    chance_weight: 20
+    minChance: 0
+    maxChance: 0
+  - outPut: ANS
+    chance_weight: 40
+    minChance: 0
+    maxChance: 0
   current_win_Score: 50
   win_Score_addPerWin: 10
   max_winScore: 999

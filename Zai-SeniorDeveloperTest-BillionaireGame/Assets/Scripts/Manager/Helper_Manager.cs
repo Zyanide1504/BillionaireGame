@@ -6,7 +6,6 @@ public class Helper_Manager : MonoBehaviour
 {
     GameManager gameManager;
     public Animator animator;
-    public List<Helper_AnswerChance> helper_ansChance;
     string[] choice = { "A", "B", "C", "D" };
 
     private bool isShow;
@@ -87,8 +86,10 @@ public class Helper_Manager : MonoBehaviour
 
     public void AskNPC() 
     {
+        var utility = new Utility();
+        var result = utility.RandomWithChance(gameManager.helper_ansChance);
 
-        switch (RandomAnswer()) 
+        switch (result) 
         {
             case "IDK":
 
@@ -131,53 +132,8 @@ public class Helper_Manager : MonoBehaviour
             }
 
         }
-
         temp_wrongAns = select_wrongAns[Random.RandomRange(0, select_wrongAns.Count)].GetComponent<AnswerButton>().answer;
-
-
         gameManager.question_Panel.hintButton(System.Array.IndexOf(choice, temp_wrongAns));
     }
 
-
-    public string RandomAnswer()
-    {
-        
-        float chanceSum = 0;
-
-        for (int i = 0; i < helper_ansChance.Count; i++)
-        {
-            var current = helper_ansChance[i];
-            chanceSum += current.Chance;
-            if (i == 0)
-            {
-                current.minChance = 0;
-                current.maxChance = current.Chance;
-
-            }
-            else
-            {
-
-                current.minChance = helper_ansChance[i - 1].maxChance;
-                current.maxChance = current.minChance + current.Chance;
-
-            }
-
-        }
-
-        float rand = Random.Range(0, chanceSum);
-
-        for (int i = 0; i < helper_ansChance.Count; i++)
-        {
-            var current = helper_ansChance[i];
-
-            if (rand >= current.minChance && rand < current.maxChance)
-            {
-                Debug.Log(current.answer);
-                return current.answer;
-            }
-        }
-
-        return "NAN";
-
-    }
 }

@@ -32,7 +32,6 @@ public class QuestionCard_Panel : MonoBehaviour
 
     }
 
-
     public IEnumerator HideAllCard()
     {
         foreach (var x in question_CardList)
@@ -72,10 +71,12 @@ public class QuestionCard_Panel : MonoBehaviour
     public IEnumerator SetUpQuestionCardPanel() 
     {
         StartCoroutine(gameManager.audio_Manager.PlayRandom_IN_NPC_Category("SelectQuestionCard"));
+        var utility = new Utility();
 
         for (int i = 0; i < question_CardList.Count; i++)
         {
-            question_CardList[i].SetScore(RandomCardScore());
+            var random_result = utility.RandomWithChance(gameManager.scoreCard_Chance);
+            question_CardList[i].SetScore(int.Parse(random_result));
         }
 
         StartCoroutine(ShowAllCard());
@@ -83,47 +84,5 @@ public class QuestionCard_Panel : MonoBehaviour
         Setinteract_AllCard(true);
 
         yield return null;
-    }
-
-
-    public int RandomCardScore()
-    {
-        var card_scorelist = gameManager.card_scorelist;
-        float chanceSum = 0;
-
-        for (int i = 0; i < card_scorelist.Count; i++)
-        {
-            var current = card_scorelist[i];
-            chanceSum += current.Chance;
-            if (i == 0)
-            {
-                current.minChance = 0;
-                current.maxChance = current.Chance;
-
-            }
-            else
-            {
-
-                current.minChance = card_scorelist[i - 1].maxChance;
-                current.maxChance = current.minChance + current.Chance;
-
-            }
-
-        }
-
-        float rand = Random.Range(0, chanceSum);
-
-        for (int i = 0; i < card_scorelist.Count; i++)
-        {
-            var current = card_scorelist[i];
-
-            if (rand >= current.minChance && rand < current.maxChance)
-            {
-                return current.score;
-            }
-        }
-
-        return 0;
-
     }
 }

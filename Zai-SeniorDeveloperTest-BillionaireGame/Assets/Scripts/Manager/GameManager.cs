@@ -22,7 +22,8 @@ public class GameManager : MonoBehaviour
 
 
     [Header("Game Setting")]
-    public List<QuestionScore> card_scorelist;
+    public List<Random_Chance> scoreCard_Chance;
+    public List<Random_Chance> helper_ansChance;
     public int current_win_Score;
     public int win_Score_addPerWin;
     public int max_winScore;

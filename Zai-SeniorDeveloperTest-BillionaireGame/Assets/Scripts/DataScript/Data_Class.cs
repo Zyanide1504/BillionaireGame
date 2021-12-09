@@ -29,28 +29,3 @@ public class QuestionID_Info_List
     public List<QuestionID_Info> question_list;
 
 }
-
-[System.Serializable]
-public class QuestionScore : Random_Chance
-{
-    public int score;
-   
-}
-
-
-[System.Serializable]
-public class Helper_AnswerChance : Random_Chance
-{
-    public string answer;
-}
-
-
-[System.Serializable]
-public class Random_Chance 
-{
-    public float Chance;
-    [HideInInspector]
-    public float minChance;
-    [HideInInspector]
-    public float maxChance;
-}
