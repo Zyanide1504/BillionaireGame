@@ -80,11 +80,11 @@ public class QuestionCard_Panel : MonoBehaviour
     public IEnumerator SetUpQuestionCardPanel() 
     {
         StartCoroutine(gameManager.audio_Manager.PlayRandom_IN_NPC_Category("SelectQuestionCard"));
-        var utility = new Utility();
+     
 
         for (int i = 0; i < question_CardList.Count; i++)
         {
-            var random_result = utility.RandomWithChance(gameManager.scoreCard_Chance);
+            var random_result = Utility.RandomWithChance(gameManager.scoreCard_Chance);
             question_CardList[i].SetScore(int.Parse(random_result));
         }
 

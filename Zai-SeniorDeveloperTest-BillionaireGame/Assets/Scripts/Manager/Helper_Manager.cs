@@ -92,8 +92,8 @@ public class Helper_Manager : MonoBehaviour
     // ถาม NPC  วีธีใช้เหมือน ExtendTime() และ Remove_2Choice()
     public void AskNPC() 
     {
-        var utility = new Utility();
-        var result = utility.RandomWithChance(gameManager.helper_ansChance);
+    
+        var result = Utility.RandomWithChance(gameManager.helper_ansChance);
 
         switch (result) 
         {
